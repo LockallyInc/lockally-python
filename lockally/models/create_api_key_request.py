@@ -18,6 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
+from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
@@ -32,7 +33,8 @@ class CreateApiKeyRequest(BaseModel):
     label: StrictStr = Field(description="Free-text identifier shown in the dashboard.", json_schema_extra={"examples": ["ci-pipeline"]})
     scopes: Annotated[List[StrictStr], Field(min_length=1)] = Field(description="Allowed scopes on this key.")
     test: Optional[StrictBool] = Field(default=False, description="Issue a test key (`lk_test_` prefix). A test key accepts sends, records them and fires a simulated delivery webhook without sending mail, and counts against no limit or allowance. ")
-    __properties: ClassVar[List[str]] = ["label", "scopes", "test"]
+    expires_at: Optional[datetime] = Field(default=None, description="Optional. When the key stops authenticating. Omit it for a key that does not expire. Must be in the future: an expiry already past would mint a key that fails its first request. ")
+    __properties: ClassVar[List[str]] = ["label", "scopes", "test", "expires_at"]
 
     @field_validator('scopes')
     def scopes_validate_enum(cls, value):
@@ -95,7 +97,8 @@ class CreateApiKeyRequest(BaseModel):
         _obj = cls.model_validate({
             "label": obj.get("label"),
             "scopes": obj.get("scopes"),
-            "test": obj.get("test") if obj.get("test") is not None else False
+            "test": obj.get("test") if obj.get("test") is not None else False,
+            "expires_at": obj.get("expires_at")
         })
         return _obj
 

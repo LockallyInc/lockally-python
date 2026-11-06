@@ -11,6 +11,11 @@ Name | Type | Description | Notes
 **encrypted_private_key** | **str** |  | [optional] 
 **kdf_params** | **object** |  | [optional] 
 **version** | **int** |  | [optional] 
+**created_at** | **datetime** |  | [optional] 
+**rotated_at** | **datetime** |  | [optional] 
+**has_recovery** | **bool** |  | [optional] 
+**recovery_set_at** | **datetime** |  | [optional] 
+**recovery_blob** | **str** |  | [optional] 
 
 ## Example
 

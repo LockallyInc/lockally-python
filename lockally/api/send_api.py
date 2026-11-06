@@ -588,6 +588,7 @@ class SendApi:
         var_from: Annotated[Optional[datetime], Field(description="Window start (default 7 days ago).")] = None,
         to: Annotated[Optional[datetime], Field(description="Window end (default now).")] = None,
         domain: Annotated[Optional[StrictStr], Field(description="Filter by sender domain.")] = None,
+        tag: Annotated[Optional[StrictStr], Field(description="Group the window by the sender's own tags: one tag, or a comma-separated set meaning ANY. Case-insensitive. This is the dimension that tells a transactional stream from a notification one.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -611,6 +612,8 @@ class SendApi:
         :type to: datetime
         :param domain: Filter by sender domain.
         :type domain: str
+        :param tag: Group the window by the sender's own tags: one tag, or a comma-separated set meaning ANY. Case-insensitive. This is the dimension that tells a transactional stream from a notification one.
+        :type tag: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -637,6 +640,7 @@ class SendApi:
             var_from=var_from,
             to=to,
             domain=domain,
+            tag=tag,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -665,6 +669,7 @@ class SendApi:
         var_from: Annotated[Optional[datetime], Field(description="Window start (default 7 days ago).")] = None,
         to: Annotated[Optional[datetime], Field(description="Window end (default now).")] = None,
         domain: Annotated[Optional[StrictStr], Field(description="Filter by sender domain.")] = None,
+        tag: Annotated[Optional[StrictStr], Field(description="Group the window by the sender's own tags: one tag, or a comma-separated set meaning ANY. Case-insensitive. This is the dimension that tells a transactional stream from a notification one.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -688,6 +693,8 @@ class SendApi:
         :type to: datetime
         :param domain: Filter by sender domain.
         :type domain: str
+        :param tag: Group the window by the sender's own tags: one tag, or a comma-separated set meaning ANY. Case-insensitive. This is the dimension that tells a transactional stream from a notification one.
+        :type tag: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -714,6 +721,7 @@ class SendApi:
             var_from=var_from,
             to=to,
             domain=domain,
+            tag=tag,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -742,6 +750,7 @@ class SendApi:
         var_from: Annotated[Optional[datetime], Field(description="Window start (default 7 days ago).")] = None,
         to: Annotated[Optional[datetime], Field(description="Window end (default now).")] = None,
         domain: Annotated[Optional[StrictStr], Field(description="Filter by sender domain.")] = None,
+        tag: Annotated[Optional[StrictStr], Field(description="Group the window by the sender's own tags: one tag, or a comma-separated set meaning ANY. Case-insensitive. This is the dimension that tells a transactional stream from a notification one.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -765,6 +774,8 @@ class SendApi:
         :type to: datetime
         :param domain: Filter by sender domain.
         :type domain: str
+        :param tag: Group the window by the sender's own tags: one tag, or a comma-separated set meaning ANY. Case-insensitive. This is the dimension that tells a transactional stream from a notification one.
+        :type tag: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -791,6 +802,7 @@ class SendApi:
             var_from=var_from,
             to=to,
             domain=domain,
+            tag=tag,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -814,6 +826,7 @@ class SendApi:
         var_from,
         to,
         domain,
+        tag,
         _request_auth,
         _content_type,
         _headers,
@@ -866,6 +879,10 @@ class SendApi:
             
             _query_params.append(('domain', domain))
             
+        if tag is not None:
+            
+            _query_params.append(('tag', tag))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
@@ -909,10 +926,13 @@ class SendApi:
         self,
         status: Optional[StrictStr] = None,
         sender: Annotated[Optional[StrictStr], Field(description="Exact match against the `from` mailbox.")] = None,
+        tag: Annotated[Optional[StrictStr], Field(description="Filter to messages carrying any of these tags. One tag, or a comma-separated set meaning ANY. Case-insensitive: the value is normalised the same way tags are on write.")] = None,
         q: Annotated[Optional[StrictStr], Field(description="Free-text search across subject + sender.")] = None,
         since: Annotated[Optional[datetime], Field(description="Only messages queued at or after this RFC 3339 instant.")] = None,
         cursor: Annotated[Optional[StrictStr], Field(description="queued_at of the prior page boundary. Pass back the `next_cursor` returned by the previous call.")] = None,
         limit: Optional[Annotated[int, Field(le=200, strict=True)]] = None,
+        sort: Annotated[Optional[StrictStr], Field(description="Field to order by. Only indexed columns are offered: an unindexed sort on this table is a full scan of the account's send history. status and sender are filters instead.")] = None,
+        order: Annotated[Optional[StrictStr], Field(description="Defaults to desc for the default field and asc for any other. The order is always made total by a tie-break on id, so paging cannot repeat or skip a row that shares a timestamp. cursor encodes queued_at, so combining it with another sort is a 400 rather than a wrong page.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -934,6 +954,8 @@ class SendApi:
         :type status: str
         :param sender: Exact match against the `from` mailbox.
         :type sender: str
+        :param tag: Filter to messages carrying any of these tags. One tag, or a comma-separated set meaning ANY. Case-insensitive: the value is normalised the same way tags are on write.
+        :type tag: str
         :param q: Free-text search across subject + sender.
         :type q: str
         :param since: Only messages queued at or after this RFC 3339 instant.
@@ -942,6 +964,10 @@ class SendApi:
         :type cursor: str
         :param limit:
         :type limit: int
+        :param sort: Field to order by. Only indexed columns are offered: an unindexed sort on this table is a full scan of the account's send history. status and sender are filters instead.
+        :type sort: str
+        :param order: Defaults to desc for the default field and asc for any other. The order is always made total by a tie-break on id, so paging cannot repeat or skip a row that shares a timestamp. cursor encodes queued_at, so combining it with another sort is a 400 rather than a wrong page.
+        :type order: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -967,10 +993,13 @@ class SendApi:
         _param = self._list_messages_serialize(
             status=status,
             sender=sender,
+            tag=tag,
             q=q,
             since=since,
             cursor=cursor,
             limit=limit,
+            sort=sort,
+            order=order,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -998,10 +1027,13 @@ class SendApi:
         self,
         status: Optional[StrictStr] = None,
         sender: Annotated[Optional[StrictStr], Field(description="Exact match against the `from` mailbox.")] = None,
+        tag: Annotated[Optional[StrictStr], Field(description="Filter to messages carrying any of these tags. One tag, or a comma-separated set meaning ANY. Case-insensitive: the value is normalised the same way tags are on write.")] = None,
         q: Annotated[Optional[StrictStr], Field(description="Free-text search across subject + sender.")] = None,
         since: Annotated[Optional[datetime], Field(description="Only messages queued at or after this RFC 3339 instant.")] = None,
         cursor: Annotated[Optional[StrictStr], Field(description="queued_at of the prior page boundary. Pass back the `next_cursor` returned by the previous call.")] = None,
         limit: Optional[Annotated[int, Field(le=200, strict=True)]] = None,
+        sort: Annotated[Optional[StrictStr], Field(description="Field to order by. Only indexed columns are offered: an unindexed sort on this table is a full scan of the account's send history. status and sender are filters instead.")] = None,
+        order: Annotated[Optional[StrictStr], Field(description="Defaults to desc for the default field and asc for any other. The order is always made total by a tie-break on id, so paging cannot repeat or skip a row that shares a timestamp. cursor encodes queued_at, so combining it with another sort is a 400 rather than a wrong page.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1023,6 +1055,8 @@ class SendApi:
         :type status: str
         :param sender: Exact match against the `from` mailbox.
         :type sender: str
+        :param tag: Filter to messages carrying any of these tags. One tag, or a comma-separated set meaning ANY. Case-insensitive: the value is normalised the same way tags are on write.
+        :type tag: str
         :param q: Free-text search across subject + sender.
         :type q: str
         :param since: Only messages queued at or after this RFC 3339 instant.
@@ -1031,6 +1065,10 @@ class SendApi:
         :type cursor: str
         :param limit:
         :type limit: int
+        :param sort: Field to order by. Only indexed columns are offered: an unindexed sort on this table is a full scan of the account's send history. status and sender are filters instead.
+        :type sort: str
+        :param order: Defaults to desc for the default field and asc for any other. The order is always made total by a tie-break on id, so paging cannot repeat or skip a row that shares a timestamp. cursor encodes queued_at, so combining it with another sort is a 400 rather than a wrong page.
+        :type order: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1056,10 +1094,13 @@ class SendApi:
         _param = self._list_messages_serialize(
             status=status,
             sender=sender,
+            tag=tag,
             q=q,
             since=since,
             cursor=cursor,
             limit=limit,
+            sort=sort,
+            order=order,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1087,10 +1128,13 @@ class SendApi:
         self,
         status: Optional[StrictStr] = None,
         sender: Annotated[Optional[StrictStr], Field(description="Exact match against the `from` mailbox.")] = None,
+        tag: Annotated[Optional[StrictStr], Field(description="Filter to messages carrying any of these tags. One tag, or a comma-separated set meaning ANY. Case-insensitive: the value is normalised the same way tags are on write.")] = None,
         q: Annotated[Optional[StrictStr], Field(description="Free-text search across subject + sender.")] = None,
         since: Annotated[Optional[datetime], Field(description="Only messages queued at or after this RFC 3339 instant.")] = None,
         cursor: Annotated[Optional[StrictStr], Field(description="queued_at of the prior page boundary. Pass back the `next_cursor` returned by the previous call.")] = None,
         limit: Optional[Annotated[int, Field(le=200, strict=True)]] = None,
+        sort: Annotated[Optional[StrictStr], Field(description="Field to order by. Only indexed columns are offered: an unindexed sort on this table is a full scan of the account's send history. status and sender are filters instead.")] = None,
+        order: Annotated[Optional[StrictStr], Field(description="Defaults to desc for the default field and asc for any other. The order is always made total by a tie-break on id, so paging cannot repeat or skip a row that shares a timestamp. cursor encodes queued_at, so combining it with another sort is a 400 rather than a wrong page.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1112,6 +1156,8 @@ class SendApi:
         :type status: str
         :param sender: Exact match against the `from` mailbox.
         :type sender: str
+        :param tag: Filter to messages carrying any of these tags. One tag, or a comma-separated set meaning ANY. Case-insensitive: the value is normalised the same way tags are on write.
+        :type tag: str
         :param q: Free-text search across subject + sender.
         :type q: str
         :param since: Only messages queued at or after this RFC 3339 instant.
@@ -1120,6 +1166,10 @@ class SendApi:
         :type cursor: str
         :param limit:
         :type limit: int
+        :param sort: Field to order by. Only indexed columns are offered: an unindexed sort on this table is a full scan of the account's send history. status and sender are filters instead.
+        :type sort: str
+        :param order: Defaults to desc for the default field and asc for any other. The order is always made total by a tie-break on id, so paging cannot repeat or skip a row that shares a timestamp. cursor encodes queued_at, so combining it with another sort is a 400 rather than a wrong page.
+        :type order: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1145,10 +1195,13 @@ class SendApi:
         _param = self._list_messages_serialize(
             status=status,
             sender=sender,
+            tag=tag,
             q=q,
             since=since,
             cursor=cursor,
             limit=limit,
+            sort=sort,
+            order=order,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1171,10 +1224,13 @@ class SendApi:
         self,
         status,
         sender,
+        tag,
         q,
         since,
         cursor,
         limit,
+        sort,
+        order,
         _request_auth,
         _content_type,
         _headers,
@@ -1205,6 +1261,10 @@ class SendApi:
             
             _query_params.append(('sender', sender))
             
+        if tag is not None:
+            
+            _query_params.append(('tag', tag))
+            
         if q is not None:
             
             _query_params.append(('q', q))
@@ -1229,6 +1289,14 @@ class SendApi:
         if limit is not None:
             
             _query_params.append(('limit', limit))
+            
+        if sort is not None:
+            
+            _query_params.append(('sort', sort))
+            
+        if order is not None:
+            
+            _query_params.append(('order', order))
             
         # process the header parameters
         # process the form parameters

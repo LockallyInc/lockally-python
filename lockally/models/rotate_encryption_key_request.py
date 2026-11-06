@@ -28,7 +28,7 @@ class RotateEncryptionKeyRequest(BaseModel):
     """
     RotateEncryptionKeyRequest
     """ # noqa: E501
-    mailbox_email: StrictStr
+    mailbox_email: Optional[StrictStr] = None
     encrypted_private_key: StrictStr
     kdf_params: Optional[Dict[str, Any]] = None
     __properties: ClassVar[List[str]] = ["mailbox_email", "encrypted_private_key", "kdf_params"]

@@ -60,6 +60,14 @@ class TestSendEmailRequest(unittest.TestCase):
                     'key' : ''
                     },
                 send_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                metadata = {
+                    'key' : ''
+                    },
+                tags = [
+                    ''
+                    ],
+                track_opens = True,
+                track_clicks = True,
                 attachments = [
                     lockally.models.send_email_request_attachments_inner.sendEmail_request_attachments_inner(
                         filename = '', 

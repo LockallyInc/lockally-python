@@ -19,7 +19,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -28,7 +28,7 @@ class CreateEncryptionRecoveryRequest(BaseModel):
     """
     CreateEncryptionRecoveryRequest
     """ # noqa: E501
-    mailbox_email: StrictStr
+    mailbox_email: Optional[StrictStr] = None
     recovery_blob: StrictStr
     __properties: ClassVar[List[str]] = ["mailbox_email", "recovery_blob"]
 

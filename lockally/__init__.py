@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "0.3.3"
+__version__ = "0.4.0"
 
 # Define package exports
 __all__ = [
@@ -79,6 +79,10 @@ __all__ = [
     "BatchLookupPublicKeys200ResponseDataInner",
     "BatchResult",
     "BillingStatus",
+    "BulkUpsertExternalContacts200Response",
+    "BulkUpsertExternalContacts200ResponseResultsInner",
+    "BulkUpsertExternalContactsRequest",
+    "BulkUpsertExternalContactsRequestContactsInner",
     "Calendar",
     "CalendarEvent",
     "CalendarIntegration",
@@ -128,6 +132,7 @@ __all__ = [
     "DraftList",
     "DraftResult",
     "ExportMailbox201Response",
+    "ExternalContactInput",
     "GALSettings",
     "GetAddOnStatus200Response",
     "GetAuditSummary200Response",
@@ -150,6 +155,8 @@ __all__ = [
     "GetDomainsStatus200ResponseDomainsInner",
     "GetDomainsStatus200ResponseDomainsInnerChecksInner",
     "GetEncryptionKey200Response",
+    "GetEncryptionStatus200Response",
+    "GetEncryptionStatus200ResponseMailboxesInner",
     "GetIPAssignment200Response",
     "GetIntegrationsSummary200Response",
     "GetIntegrationsSummary200ResponseApiKeysInner",
@@ -207,6 +214,8 @@ __all__ = [
     "MessageStatsWindow",
     "Migration",
     "MigrationCredential",
+    "MigrationDNSCheck",
+    "MigrationDomainDNS",
     "MigrationEvent",
     "MigrationMailbox",
     "MigrationProgress",
@@ -220,6 +229,7 @@ __all__ = [
     "Resource",
     "ReturnPath",
     "ReturnPathCheck",
+    "RotateApiKeyRequest",
     "RotateEncryptionKeyRequest",
     "SendEmail200Response",
     "SendEmail202Response",
@@ -238,6 +248,8 @@ __all__ = [
     "Template",
     "TemplateInput",
     "Tenant",
+    "TenantHealthCheck",
+    "TenantHealthReport",
     "Thread",
     "ThreadClassification",
     "ThreadList",
@@ -245,8 +257,10 @@ __all__ = [
     "ThreadMessageBody",
     "ThreadMessageBodyBody",
     "ThreadSummary",
+    "TrackingPolicy",
     "UnitBundle",
     "UpdateAdminRequest",
+    "UpdateApiKeyRequest",
     "UpdateCalendarEventRequest",
     "UpdateCalendarIntegrationRequest",
     "UpdateCalendarMemberRequest",
@@ -260,6 +274,7 @@ __all__ = [
     "UpdateMigrationMailboxRequest",
     "UpdateMigrationRequest",
     "UpdateResourceRequest",
+    "UpdateTrackingPolicyRequest",
     "UpdateUserRequest",
     "UpdateWebhookRequest",
     "User",
@@ -337,6 +352,10 @@ from lockally.models.batch_lookup_public_keys200_response import BatchLookupPubl
 from lockally.models.batch_lookup_public_keys200_response_data_inner import BatchLookupPublicKeys200ResponseDataInner as BatchLookupPublicKeys200ResponseDataInner
 from lockally.models.batch_result import BatchResult as BatchResult
 from lockally.models.billing_status import BillingStatus as BillingStatus
+from lockally.models.bulk_upsert_external_contacts200_response import BulkUpsertExternalContacts200Response as BulkUpsertExternalContacts200Response
+from lockally.models.bulk_upsert_external_contacts200_response_results_inner import BulkUpsertExternalContacts200ResponseResultsInner as BulkUpsertExternalContacts200ResponseResultsInner
+from lockally.models.bulk_upsert_external_contacts_request import BulkUpsertExternalContactsRequest as BulkUpsertExternalContactsRequest
+from lockally.models.bulk_upsert_external_contacts_request_contacts_inner import BulkUpsertExternalContactsRequestContactsInner as BulkUpsertExternalContactsRequestContactsInner
 from lockally.models.calendar import Calendar as Calendar
 from lockally.models.calendar_event import CalendarEvent as CalendarEvent
 from lockally.models.calendar_integration import CalendarIntegration as CalendarIntegration
@@ -386,6 +405,7 @@ from lockally.models.draft import Draft as Draft
 from lockally.models.draft_list import DraftList as DraftList
 from lockally.models.draft_result import DraftResult as DraftResult
 from lockally.models.export_mailbox201_response import ExportMailbox201Response as ExportMailbox201Response
+from lockally.models.external_contact_input import ExternalContactInput as ExternalContactInput
 from lockally.models.gal_settings import GALSettings as GALSettings
 from lockally.models.get_add_on_status200_response import GetAddOnStatus200Response as GetAddOnStatus200Response
 from lockally.models.get_audit_summary200_response import GetAuditSummary200Response as GetAuditSummary200Response
@@ -408,6 +428,8 @@ from lockally.models.get_domains_status200_response import GetDomainsStatus200Re
 from lockally.models.get_domains_status200_response_domains_inner import GetDomainsStatus200ResponseDomainsInner as GetDomainsStatus200ResponseDomainsInner
 from lockally.models.get_domains_status200_response_domains_inner_checks_inner import GetDomainsStatus200ResponseDomainsInnerChecksInner as GetDomainsStatus200ResponseDomainsInnerChecksInner
 from lockally.models.get_encryption_key200_response import GetEncryptionKey200Response as GetEncryptionKey200Response
+from lockally.models.get_encryption_status200_response import GetEncryptionStatus200Response as GetEncryptionStatus200Response
+from lockally.models.get_encryption_status200_response_mailboxes_inner import GetEncryptionStatus200ResponseMailboxesInner as GetEncryptionStatus200ResponseMailboxesInner
 from lockally.models.get_ip_assignment200_response import GetIPAssignment200Response as GetIPAssignment200Response
 from lockally.models.get_integrations_summary200_response import GetIntegrationsSummary200Response as GetIntegrationsSummary200Response
 from lockally.models.get_integrations_summary200_response_api_keys_inner import GetIntegrationsSummary200ResponseApiKeysInner as GetIntegrationsSummary200ResponseApiKeysInner
@@ -465,6 +487,8 @@ from lockally.models.message_stats_rates import MessageStatsRates as MessageStat
 from lockally.models.message_stats_window import MessageStatsWindow as MessageStatsWindow
 from lockally.models.migration import Migration as Migration
 from lockally.models.migration_credential import MigrationCredential as MigrationCredential
+from lockally.models.migration_dns_check import MigrationDNSCheck as MigrationDNSCheck
+from lockally.models.migration_domain_dns import MigrationDomainDNS as MigrationDomainDNS
 from lockally.models.migration_event import MigrationEvent as MigrationEvent
 from lockally.models.migration_mailbox import MigrationMailbox as MigrationMailbox
 from lockally.models.migration_progress import MigrationProgress as MigrationProgress
@@ -478,6 +502,7 @@ from lockally.models.replace_distribution_list_members_request import ReplaceDis
 from lockally.models.resource import Resource as Resource
 from lockally.models.return_path import ReturnPath as ReturnPath
 from lockally.models.return_path_check import ReturnPathCheck as ReturnPathCheck
+from lockally.models.rotate_api_key_request import RotateApiKeyRequest as RotateApiKeyRequest
 from lockally.models.rotate_encryption_key_request import RotateEncryptionKeyRequest as RotateEncryptionKeyRequest
 from lockally.models.send_email200_response import SendEmail200Response as SendEmail200Response
 from lockally.models.send_email202_response import SendEmail202Response as SendEmail202Response
@@ -496,6 +521,8 @@ from lockally.models.suppression import Suppression as Suppression
 from lockally.models.template import Template as Template
 from lockally.models.template_input import TemplateInput as TemplateInput
 from lockally.models.tenant import Tenant as Tenant
+from lockally.models.tenant_health_check import TenantHealthCheck as TenantHealthCheck
+from lockally.models.tenant_health_report import TenantHealthReport as TenantHealthReport
 from lockally.models.thread import Thread as Thread
 from lockally.models.thread_classification import ThreadClassification as ThreadClassification
 from lockally.models.thread_list import ThreadList as ThreadList
@@ -503,8 +530,10 @@ from lockally.models.thread_message import ThreadMessage as ThreadMessage
 from lockally.models.thread_message_body import ThreadMessageBody as ThreadMessageBody
 from lockally.models.thread_message_body_body import ThreadMessageBodyBody as ThreadMessageBodyBody
 from lockally.models.thread_summary import ThreadSummary as ThreadSummary
+from lockally.models.tracking_policy import TrackingPolicy as TrackingPolicy
 from lockally.models.unit_bundle import UnitBundle as UnitBundle
 from lockally.models.update_admin_request import UpdateAdminRequest as UpdateAdminRequest
+from lockally.models.update_api_key_request import UpdateApiKeyRequest as UpdateApiKeyRequest
 from lockally.models.update_calendar_event_request import UpdateCalendarEventRequest as UpdateCalendarEventRequest
 from lockally.models.update_calendar_integration_request import UpdateCalendarIntegrationRequest as UpdateCalendarIntegrationRequest
 from lockally.models.update_calendar_member_request import UpdateCalendarMemberRequest as UpdateCalendarMemberRequest
@@ -518,6 +547,7 @@ from lockally.models.update_mailbox_request import UpdateMailboxRequest as Updat
 from lockally.models.update_migration_mailbox_request import UpdateMigrationMailboxRequest as UpdateMigrationMailboxRequest
 from lockally.models.update_migration_request import UpdateMigrationRequest as UpdateMigrationRequest
 from lockally.models.update_resource_request import UpdateResourceRequest as UpdateResourceRequest
+from lockally.models.update_tracking_policy_request import UpdateTrackingPolicyRequest as UpdateTrackingPolicyRequest
 from lockally.models.update_user_request import UpdateUserRequest as UpdateUserRequest
 from lockally.models.update_webhook_request import UpdateWebhookRequest as UpdateWebhookRequest
 from lockally.models.user import User as User

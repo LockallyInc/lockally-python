@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**mailbox_email** | **str** |  | 
+**mailbox_email** | **str** |  | [optional] 
 **recovery_blob** | **str** |  | 
 
 ## Example

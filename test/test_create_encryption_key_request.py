@@ -43,7 +43,6 @@ class TestCreateEncryptionKeyRequest(unittest.TestCase):
             )
         else:
             return CreateEncryptionKeyRequest(
-                mailbox_email = '',
                 public_key = '',
                 encrypted_private_key = '',
         )

@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **id** | **UUID** |  | [optional] 
 **mailbox_id** | **UUID** |  | [optional] 
 **created_at** | **datetime** |  | [optional] 
+**replaced_old** | **bool** |  | [optional] 
 
 ## Example
 

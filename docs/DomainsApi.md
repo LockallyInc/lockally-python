@@ -525,7 +525,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_domains**
-> ListDomains200Response list_domains()
+> ListDomains200Response list_domains(sort=sort, order=order)
 
 List domains
 
@@ -561,10 +561,12 @@ configuration = lockally.Configuration(
 with lockally.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = lockally.DomainsApi(api_client)
+    sort = created_at # str | Field to order by. This list holds tens of rows per account, so every column is offered and none needs an index. (optional) (default to created_at)
+    order = 'order_example' # str | Defaults to desc for the default field and asc for any other. Always tie-broken on id, so the order is total. (optional)
 
     try:
         # List domains
-        api_response = api_instance.list_domains()
+        api_response = api_instance.list_domains(sort=sort, order=order)
         print("The response of DomainsApi->list_domains:\n")
         pprint(api_response)
     except Exception as e:
@@ -575,7 +577,11 @@ with lockally.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sort** | **str**| Field to order by. This list holds tens of rows per account, so every column is offered and none needs an index. | [optional] [default to created_at]
+ **order** | **str**| Defaults to desc for the default field and asc for any other. Always tie-broken on id, so the order is total. | [optional] 
 
 ### Return type
 

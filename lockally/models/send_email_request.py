@@ -46,8 +46,12 @@ class SendEmailRequest(BaseModel):
     template_id: Optional[UUID] = Field(default=None, description="Render subject/text/html from a stored template (GET /v1/templates). Mutually exclusive with inline subject/text/html.")
     variables: Optional[Dict[str, StrictStr]] = Field(default=None, description="Values substituted into the template's {{variable}} placeholders.")
     send_at: Optional[datetime] = Field(default=None, description="Schedule delivery for a future RFC3339 time (≤ 30 days out). Omit or past = send now. Cancel with DELETE /v1/messages/{id} while scheduled.")
+    metadata: Optional[Dict[str, StrictStr]] = Field(default=None, description="Arbitrary key/value you attach to this message and get back on every delivery webhook for it, so a send can be matched to your own records without a lookup table.  **It never leaves Lockally.** A custom entry in `headers` goes out on the wire to the recipient, which is why that is not a substitute: order ids and internal identifiers do not belong in a header the recipient can read.  At most 20 keys, keys at most 64 characters, values at most 512. **Over a limit is refused with a `400`, never truncated**: a silently shortened order id succeeds and then fails to match weeks later.  Not indexed and not filterable. ")
+    tags: Optional[Annotated[List[Annotated[str, Field(strict=True, max_length=32)]], Field(max_length=10)]] = Field(default=None, description="Labels that group this send for filtering and analytics: campaign, template, environment.  **Lowercased, trimmed and deduplicated on write**, so the grouping does not depend on every caller spelling them identically. `Campaign-X` is stored as `campaign-x`, and either spelling matches it in a filter.  At most 10 per message after deduplication, each at most 32 characters. Over either is a `400` rather than a trimmed list: a send missing the tag it was tagged for is worse than a refusal.  Unlike `metadata`, tags ARE queryable: filter with `GET /v1/messages?tag=` and group with `GET /v1/messages/stats?tag=`. ")
+    track_opens: Optional[StrictBool] = Field(default=None, description="Override the account's open-tracking setting for this one send. Omit to inherit it.  Three states matter here: `true`, `false`, and absent. A transactional receipt can set `false` without the account turning tracking off for its marketing. ")
+    track_clicks: Optional[StrictBool] = Field(default=None, description="As `track_opens`, for click tracking. Click tracking rewrites `http(s)` links in the **HTML** part only: the plain-text part is never rewritten, because a visible redirect URL is what recipients complain about. A text-only send is therefore not click-tracked. ")
     attachments: Optional[List[SendEmailRequestAttachmentsInner]] = None
-    __properties: ClassVar[List[str]] = ["from", "to", "cc", "bcc", "subject", "text", "html", "headers", "reply_to", "reply_to_name", "unsubscribe", "template_id", "variables", "send_at", "attachments"]
+    __properties: ClassVar[List[str]] = ["from", "to", "cc", "bcc", "subject", "text", "html", "headers", "reply_to", "reply_to_name", "unsubscribe", "template_id", "variables", "send_at", "metadata", "tags", "track_opens", "track_clicks", "attachments"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -121,6 +125,10 @@ class SendEmailRequest(BaseModel):
             "template_id": obj.get("template_id"),
             "variables": obj.get("variables"),
             "send_at": obj.get("send_at"),
+            "metadata": obj.get("metadata"),
+            "tags": obj.get("tags"),
+            "track_opens": obj.get("track_opens"),
+            "track_clicks": obj.get("track_clicks"),
             "attachments": [SendEmailRequestAttachmentsInner.from_dict(_item) for _item in obj["attachments"]] if obj.get("attachments") is not None else None
         })
         return _obj

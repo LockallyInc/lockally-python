@@ -344,9 +344,9 @@ class UsersApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Delete a user
+        """Deprovision a user
 
-        Soft-deletes the user by setting status to deprovisioned.
+        Sets the user's status to `deprovisioned` and ends their access: each of their mailboxes and their console membership is disabled, app passwords are revoked, and every webmail and console session ends. Their mail is kept. API keys belong to the workspace and are not revoked; rotate any the person had access to. 
 
         :param id: (required)
         :type id: UUID
@@ -385,6 +385,7 @@ class UsersApi:
             '401': "Problem",
             '403': "Problem",
             '404': "Problem",
+            '409': "Problem",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -414,9 +415,9 @@ class UsersApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Delete a user
+        """Deprovision a user
 
-        Soft-deletes the user by setting status to deprovisioned.
+        Sets the user's status to `deprovisioned` and ends their access: each of their mailboxes and their console membership is disabled, app passwords are revoked, and every webmail and console session ends. Their mail is kept. API keys belong to the workspace and are not revoked; rotate any the person had access to. 
 
         :param id: (required)
         :type id: UUID
@@ -455,6 +456,7 @@ class UsersApi:
             '401': "Problem",
             '403': "Problem",
             '404': "Problem",
+            '409': "Problem",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -484,9 +486,9 @@ class UsersApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Delete a user
+        """Deprovision a user
 
-        Soft-deletes the user by setting status to deprovisioned.
+        Sets the user's status to `deprovisioned` and ends their access: each of their mailboxes and their console membership is disabled, app passwords are revoked, and every webmail and console session ends. Their mail is kept. API keys belong to the workspace and are not revoked; rotate any the person had access to. 
 
         :param id: (required)
         :type id: UUID
@@ -525,6 +527,7 @@ class UsersApi:
             '401': "Problem",
             '403': "Problem",
             '404': "Problem",
+            '409': "Problem",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1152,6 +1155,7 @@ class UsersApi:
     ) -> User:
         """Update a user
 
+        Setting `status` to `suspended` or `deprovisioned` takes away everything the person signs in with: each of their mailboxes and their console membership is disabled, app passwords are revoked, and every webmail and console session ends. Setting it back to `active` restores what the suspension disabled, and nothing an admin disabled for another reason. API keys belong to the workspace, not to the person who created them, and are not revoked; rotate any the person had access to. 
 
         :param id: (required)
         :type id: UUID
@@ -1194,6 +1198,7 @@ class UsersApi:
             '401': "Problem",
             '403': "Problem",
             '404': "Problem",
+            '409': "Problem",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1226,6 +1231,7 @@ class UsersApi:
     ) -> ApiResponse[User]:
         """Update a user
 
+        Setting `status` to `suspended` or `deprovisioned` takes away everything the person signs in with: each of their mailboxes and their console membership is disabled, app passwords are revoked, and every webmail and console session ends. Setting it back to `active` restores what the suspension disabled, and nothing an admin disabled for another reason. API keys belong to the workspace, not to the person who created them, and are not revoked; rotate any the person had access to. 
 
         :param id: (required)
         :type id: UUID
@@ -1268,6 +1274,7 @@ class UsersApi:
             '401': "Problem",
             '403': "Problem",
             '404': "Problem",
+            '409': "Problem",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1300,6 +1307,7 @@ class UsersApi:
     ) -> RESTResponseType:
         """Update a user
 
+        Setting `status` to `suspended` or `deprovisioned` takes away everything the person signs in with: each of their mailboxes and their console membership is disabled, app passwords are revoked, and every webmail and console session ends. Setting it back to `active` restores what the suspension disabled, and nothing an admin disabled for another reason. API keys belong to the workspace, not to the person who created them, and are not revoked; rotate any the person had access to. 
 
         :param id: (required)
         :type id: UUID
@@ -1342,6 +1350,7 @@ class UsersApi:
             '401': "Problem",
             '403': "Problem",
             '404': "Problem",
+            '409': "Problem",
         }
         response_data = self.api_client.call_api(
             *_param,

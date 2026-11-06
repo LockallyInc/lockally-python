@@ -18,8 +18,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from lockally.models.send_message import SendMessage
 from typing import Optional, Set
@@ -31,7 +31,8 @@ class SendEmailBatchRequest(BaseModel):
     SendEmailBatchRequest
     """ # noqa: E501
     messages: Annotated[List[SendMessage], Field(min_length=1, max_length=500)]
-    __properties: ClassVar[List[str]] = ["messages"]
+    variables: Optional[Dict[str, StrictStr]] = Field(default=None, description="Template variables every message in the batch inherits. Each message's own `variables` override these key by key, so shared values are written once and per-recipient ones stay per-recipient.  Without this, a 500-message batch repeats every shared variable 500 times: most of the payload, and 500 places for one of them to differ by a typo. ")
+    __properties: ClassVar[List[str]] = ["messages", "variables"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -91,7 +92,8 @@ class SendEmailBatchRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "messages": [SendMessage.from_dict(_item) for _item in obj["messages"]] if obj.get("messages") is not None else None
+            "messages": [SendMessage.from_dict(_item) for _item in obj["messages"]] if obj.get("messages") is not None else None,
+            "variables": obj.get("variables")
         })
         return _obj
 

@@ -37,7 +37,7 @@ class TestUsersApi(unittest.TestCase):
     def test_delete_user(self) -> None:
         """Test case for delete_user
 
-        Delete a user
+        Deprovision a user
         """
         pass
 

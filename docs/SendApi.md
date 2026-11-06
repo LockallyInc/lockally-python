@@ -169,7 +169,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_message_stats**
-> MessageStats get_message_stats(var_from=var_from, to=to, domain=domain)
+> MessageStats get_message_stats(var_from=var_from, to=to, domain=domain, tag=tag)
 
 Aggregate delivery stats
 
@@ -212,10 +212,11 @@ with lockally.ApiClient(configuration) as api_client:
     var_from = '2013-10-20T19:20:30+01:00' # datetime | Window start (default 7 days ago). (optional)
     to = '2013-10-20T19:20:30+01:00' # datetime | Window end (default now). (optional)
     domain = 'domain_example' # str | Filter by sender domain. (optional)
+    tag = 'tag_example' # str | Group the window by the sender's own tags: one tag, or a comma-separated set meaning ANY. Case-insensitive. This is the dimension that tells a transactional stream from a notification one. (optional)
 
     try:
         # Aggregate delivery stats
-        api_response = api_instance.get_message_stats(var_from=var_from, to=to, domain=domain)
+        api_response = api_instance.get_message_stats(var_from=var_from, to=to, domain=domain, tag=tag)
         print("The response of SendApi->get_message_stats:\n")
         pprint(api_response)
     except Exception as e:
@@ -232,6 +233,7 @@ Name | Type | Description  | Notes
  **var_from** | **datetime**| Window start (default 7 days ago). | [optional] 
  **to** | **datetime**| Window end (default now). | [optional] 
  **domain** | **str**| Filter by sender domain. | [optional] 
+ **tag** | **str**| Group the window by the sender&#39;s own tags: one tag, or a comma-separated set meaning ANY. Case-insensitive. This is the dimension that tells a transactional stream from a notification one. | [optional] 
 
 ### Return type
 
@@ -257,7 +259,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_messages**
-> ListMessages200Response list_messages(status=status, sender=sender, q=q, since=since, cursor=cursor, limit=limit)
+> ListMessages200Response list_messages(status=status, sender=sender, tag=tag, q=q, since=since, cursor=cursor, limit=limit, sort=sort, order=order)
 
 List outbound messages
 
@@ -297,14 +299,17 @@ with lockally.ApiClient(configuration) as api_client:
     api_instance = lockally.SendApi(api_client)
     status = 'status_example' # str |  (optional)
     sender = 'sender_example' # str | Exact match against the `from` mailbox. (optional)
+    tag = 'tag_example' # str | Filter to messages carrying any of these tags. One tag, or a comma-separated set meaning ANY. Case-insensitive: the value is normalised the same way tags are on write. (optional)
     q = 'q_example' # str | Free-text search across subject + sender. (optional)
     since = '2013-10-20T19:20:30+01:00' # datetime | Only messages queued at or after this RFC 3339 instant. (optional)
     cursor = 'cursor_example' # str | queued_at of the prior page boundary. Pass back the `next_cursor` returned by the previous call. (optional)
     limit = 50 # int |  (optional) (default to 50)
+    sort = queued_at # str | Field to order by. Only indexed columns are offered: an unindexed sort on this table is a full scan of the account's send history. status and sender are filters instead. (optional) (default to queued_at)
+    order = 'order_example' # str | Defaults to desc for the default field and asc for any other. The order is always made total by a tie-break on id, so paging cannot repeat or skip a row that shares a timestamp. cursor encodes queued_at, so combining it with another sort is a 400 rather than a wrong page. (optional)
 
     try:
         # List outbound messages
-        api_response = api_instance.list_messages(status=status, sender=sender, q=q, since=since, cursor=cursor, limit=limit)
+        api_response = api_instance.list_messages(status=status, sender=sender, tag=tag, q=q, since=since, cursor=cursor, limit=limit, sort=sort, order=order)
         print("The response of SendApi->list_messages:\n")
         pprint(api_response)
     except Exception as e:
@@ -320,10 +325,13 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **status** | **str**|  | [optional] 
  **sender** | **str**| Exact match against the &#x60;from&#x60; mailbox. | [optional] 
+ **tag** | **str**| Filter to messages carrying any of these tags. One tag, or a comma-separated set meaning ANY. Case-insensitive: the value is normalised the same way tags are on write. | [optional] 
  **q** | **str**| Free-text search across subject + sender. | [optional] 
  **since** | **datetime**| Only messages queued at or after this RFC 3339 instant. | [optional] 
  **cursor** | **str**| queued_at of the prior page boundary. Pass back the &#x60;next_cursor&#x60; returned by the previous call. | [optional] 
  **limit** | **int**|  | [optional] [default to 50]
+ **sort** | **str**| Field to order by. Only indexed columns are offered: an unindexed sort on this table is a full scan of the account&#39;s send history. status and sender are filters instead. | [optional] [default to queued_at]
+ **order** | **str**| Defaults to desc for the default field and asc for any other. The order is always made total by a tie-break on id, so paging cannot repeat or skip a row that shares a timestamp. cursor encodes queued_at, so combining it with another sort is a 400 rather than a wrong page. | [optional] 
 
 ### Return type
 

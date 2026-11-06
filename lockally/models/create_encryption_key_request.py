@@ -28,7 +28,7 @@ class CreateEncryptionKeyRequest(BaseModel):
     """
     CreateEncryptionKeyRequest
     """ # noqa: E501
-    mailbox_email: StrictStr
+    mailbox_email: Optional[StrictStr] = None
     public_key: StrictStr
     encrypted_private_key: StrictStr
     kdf_params: Optional[Dict[str, Any]] = None

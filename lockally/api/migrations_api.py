@@ -16,7 +16,6 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from typing import Any, Dict
 from uuid import UUID
 from lockally.models.create_migration_credential_request import CreateMigrationCredentialRequest
 from lockally.models.create_migration_request import CreateMigrationRequest
@@ -28,6 +27,7 @@ from lockally.models.list_migrations200_response import ListMigrations200Respons
 from lockally.models.map_migration_request import MapMigrationRequest
 from lockally.models.migration import Migration
 from lockally.models.migration_credential import MigrationCredential
+from lockally.models.migration_dns_check import MigrationDNSCheck
 from lockally.models.migration_progress import MigrationProgress
 from lockally.models.start_migration202_response import StartMigration202Response
 from lockally.models.update_migration_mailbox_request import UpdateMigrationMailboxRequest
@@ -341,7 +341,7 @@ class MigrationsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> object:
+    ) -> MigrationDNSCheck:
         """Check DNS readiness for cutover
 
 
@@ -378,7 +378,8 @@ class MigrationsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
+            '200': "MigrationDNSCheck",
+            '400': "Problem",
             '401': "Problem",
             '403': "Problem",
             '404': "Problem",
@@ -411,7 +412,7 @@ class MigrationsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[object]:
+    ) -> ApiResponse[MigrationDNSCheck]:
         """Check DNS readiness for cutover
 
 
@@ -448,7 +449,8 @@ class MigrationsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
+            '200': "MigrationDNSCheck",
+            '400': "Problem",
             '401': "Problem",
             '403': "Problem",
             '404': "Problem",
@@ -518,7 +520,8 @@ class MigrationsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
+            '200': "MigrationDNSCheck",
+            '400': "Problem",
             '401': "Problem",
             '403': "Problem",
             '404': "Problem",

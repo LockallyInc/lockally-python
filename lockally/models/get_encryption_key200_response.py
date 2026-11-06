@@ -18,7 +18,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from uuid import UUID
 from typing import Optional, Set
@@ -35,7 +36,12 @@ class GetEncryptionKey200Response(BaseModel):
     encrypted_private_key: Optional[StrictStr] = None
     kdf_params: Optional[Dict[str, Any]] = None
     version: Optional[StrictInt] = None
-    __properties: ClassVar[List[str]] = ["id", "email", "public_key", "encrypted_private_key", "kdf_params", "version"]
+    created_at: Optional[datetime] = None
+    rotated_at: Optional[datetime] = None
+    has_recovery: Optional[StrictBool] = None
+    recovery_set_at: Optional[datetime] = None
+    recovery_blob: Optional[StrictStr] = None
+    __properties: ClassVar[List[str]] = ["id", "email", "public_key", "encrypted_private_key", "kdf_params", "version", "created_at", "rotated_at", "has_recovery", "recovery_set_at", "recovery_blob"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -93,7 +99,12 @@ class GetEncryptionKey200Response(BaseModel):
             "public_key": obj.get("public_key"),
             "encrypted_private_key": obj.get("encrypted_private_key"),
             "kdf_params": obj.get("kdf_params"),
-            "version": obj.get("version")
+            "version": obj.get("version"),
+            "created_at": obj.get("created_at"),
+            "rotated_at": obj.get("rotated_at"),
+            "has_recovery": obj.get("has_recovery"),
+            "recovery_set_at": obj.get("recovery_set_at"),
+            "recovery_blob": obj.get("recovery_blob")
         })
         return _obj
 

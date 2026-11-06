@@ -34,7 +34,8 @@ class BatchResult(BaseModel):
     message_id: Optional[StrictStr] = None
     status: Optional[StrictStr] = Field(default=None, description="\"suppressed\" means every recipient of that slot was on your suppression list, and it carries no id or message_id. \"delivered\" only appears on a test key: the send was simulated, not transmitted.")
     error: Optional[StrictStr] = Field(default=None, description="Present when this message failed; the others are then absent.")
-    __properties: ClassVar[List[str]] = ["index", "id", "message_id", "status", "error"]
+    warning: Optional[StrictStr] = Field(default=None, description="Advisory, and NOT a failure. Today the only one is a template variable the template referenced and the request never supplied, which rendered as the empty string.")
+    __properties: ClassVar[List[str]] = ["index", "id", "message_id", "status", "error", "warning"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -101,7 +102,8 @@ class BatchResult(BaseModel):
             "id": obj.get("id"),
             "message_id": obj.get("message_id"),
             "status": obj.get("status"),
-            "error": obj.get("error")
+            "error": obj.get("error"),
+            "warning": obj.get("warning")
         })
         return _obj
 

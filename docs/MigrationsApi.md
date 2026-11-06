@@ -109,7 +109,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **check_migration_dns**
-> object check_migration_dns(id)
+> MigrationDNSCheck check_migration_dns(id)
 
 Check DNS readiness for cutover
 
@@ -119,6 +119,7 @@ Check DNS readiness for cutover
 
 ```python
 import lockally
+from lockally.models.migration_dns_check import MigrationDNSCheck
 from lockally.rest import ApiException
 from pprint import pprint
 
@@ -164,7 +165,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+[**MigrationDNSCheck**](MigrationDNSCheck.md)
 
 ### Authorization
 
@@ -180,6 +181,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | DNS readiness check results |  -  |
+**400** | The id is not a UUID, or the migration has no mapped destination mailboxes to check. |  -  |
 **401** | Missing, malformed, or invalid API key. |  -  |
 **403** | API key lacks the required scope. |  -  |
 **404** | Resource not found under the calling tenant. |  -  |

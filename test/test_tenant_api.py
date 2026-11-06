@@ -34,10 +34,24 @@ class TestTenantApi(unittest.TestCase):
         """
         pass
 
+    def test_get_tracking_policy(self) -> None:
+        """Test case for get_tracking_policy
+
+        Get the engagement tracking policy
+        """
+        pass
+
     def test_get_usage(self) -> None:
         """Test case for get_usage
 
         Usage snapshot
+        """
+        pass
+
+    def test_update_tracking_policy(self) -> None:
+        """Test case for update_tracking_policy
+
+        Update the engagement tracking policy
         """
         pass
 

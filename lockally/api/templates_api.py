@@ -16,6 +16,9 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
+from pydantic import Field, StrictStr, field_validator
+from typing import Optional
+from typing_extensions import Annotated
 from uuid import UUID
 from lockally.models.list_templates200_response import ListTemplates200Response
 from lockally.models.template import Template
@@ -846,6 +849,8 @@ class TemplatesApi:
     @validate_call
     def list_templates(
         self,
+        sort: Annotated[Optional[StrictStr], Field(description="Field to order by. This list holds tens of rows per account, so every column is offered and none needs an index.")] = None,
+        order: Annotated[Optional[StrictStr], Field(description="Defaults to asc for the default field and asc for any other. Always tie-broken on id, so the order is total.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -862,6 +867,10 @@ class TemplatesApi:
         """List templates
 
 
+        :param sort: Field to order by. This list holds tens of rows per account, so every column is offered and none needs an index.
+        :type sort: str
+        :param order: Defaults to asc for the default field and asc for any other. Always tie-broken on id, so the order is total.
+        :type order: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -885,6 +894,8 @@ class TemplatesApi:
         """ # noqa: E501
 
         _param = self._list_templates_serialize(
+            sort=sort,
+            order=order,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -910,6 +921,8 @@ class TemplatesApi:
     @validate_call
     def list_templates_with_http_info(
         self,
+        sort: Annotated[Optional[StrictStr], Field(description="Field to order by. This list holds tens of rows per account, so every column is offered and none needs an index.")] = None,
+        order: Annotated[Optional[StrictStr], Field(description="Defaults to asc for the default field and asc for any other. Always tie-broken on id, so the order is total.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -926,6 +939,10 @@ class TemplatesApi:
         """List templates
 
 
+        :param sort: Field to order by. This list holds tens of rows per account, so every column is offered and none needs an index.
+        :type sort: str
+        :param order: Defaults to asc for the default field and asc for any other. Always tie-broken on id, so the order is total.
+        :type order: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -949,6 +966,8 @@ class TemplatesApi:
         """ # noqa: E501
 
         _param = self._list_templates_serialize(
+            sort=sort,
+            order=order,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -974,6 +993,8 @@ class TemplatesApi:
     @validate_call
     def list_templates_without_preload_content(
         self,
+        sort: Annotated[Optional[StrictStr], Field(description="Field to order by. This list holds tens of rows per account, so every column is offered and none needs an index.")] = None,
+        order: Annotated[Optional[StrictStr], Field(description="Defaults to asc for the default field and asc for any other. Always tie-broken on id, so the order is total.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -990,6 +1011,10 @@ class TemplatesApi:
         """List templates
 
 
+        :param sort: Field to order by. This list holds tens of rows per account, so every column is offered and none needs an index.
+        :type sort: str
+        :param order: Defaults to asc for the default field and asc for any other. Always tie-broken on id, so the order is total.
+        :type order: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1013,6 +1038,8 @@ class TemplatesApi:
         """ # noqa: E501
 
         _param = self._list_templates_serialize(
+            sort=sort,
+            order=order,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1033,6 +1060,8 @@ class TemplatesApi:
 
     def _list_templates_serialize(
         self,
+        sort,
+        order,
         _request_auth,
         _content_type,
         _headers,
@@ -1055,6 +1084,14 @@ class TemplatesApi:
 
         # process the path parameters
         # process the query parameters
+        if sort is not None:
+            
+            _query_params.append(('sort', sort))
+            
+        if order is not None:
+            
+            _query_params.append(('order', order))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter

@@ -19,7 +19,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from uuid import UUID
 from typing import Optional, Set
@@ -44,7 +44,9 @@ class Contact(BaseModel):
     status: StrictStr
     created_at: datetime
     updated_at: datetime
-    __properties: ClassVar[List[str]] = ["id", "tenant_id", "name", "email", "phone", "company", "notes", "contact_type", "source", "department", "role", "status", "created_at", "updated_at"]
+    external_system: Optional[StrictStr] = Field(default=None, description="The system that owns this contact's external id. Absent on contacts made by hand.")
+    external_id: Optional[StrictStr] = Field(default=None, description="The contact's id in `external_system`. Absent on contacts made by hand.")
+    __properties: ClassVar[List[str]] = ["id", "tenant_id", "name", "email", "phone", "company", "notes", "contact_type", "source", "department", "role", "status", "created_at", "updated_at", "external_system", "external_id"]
 
     @field_validator('contact_type')
     def contact_type_validate_enum(cls, value):
@@ -117,7 +119,9 @@ class Contact(BaseModel):
             "role": obj.get("role"),
             "status": obj.get("status"),
             "created_at": obj.get("created_at"),
-            "updated_at": obj.get("updated_at")
+            "updated_at": obj.get("updated_at"),
+            "external_system": obj.get("external_system"),
+            "external_id": obj.get("external_id")
         })
         return _obj
 

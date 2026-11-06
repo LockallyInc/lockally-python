@@ -41,7 +41,6 @@ class TestCreateEncryptionRecoveryRequest(unittest.TestCase):
             )
         else:
             return CreateEncryptionRecoveryRequest(
-                mailbox_email = '',
                 recovery_blob = '',
         )
         """

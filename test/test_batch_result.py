@@ -40,7 +40,8 @@ class TestBatchResult(unittest.TestCase):
                 id = '',
                 message_id = '',
                 status = 'queued',
-                error = ''
+                error = '',
+                warning = ''
             )
         else:
             return BatchResult(

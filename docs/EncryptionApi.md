@@ -8,7 +8,8 @@ Method | HTTP request | Description
 [**create_encryption_key**](EncryptionApi.md#create_encryption_key) | **POST** /v1/encryption/keys | Upload an encryption key pair
 [**create_encryption_recovery**](EncryptionApi.md#create_encryption_recovery) | **POST** /v1/encryption/recovery | Store an encryption recovery blob
 [**get_encryption_key**](EncryptionApi.md#get_encryption_key) | **GET** /v1/encryption/keys/{email} | Get encryption key for a mailbox
-[**rotate_encryption_key**](EncryptionApi.md#rotate_encryption_key) | **POST** /v1/encryption/keys/rotate | Rotate an encryption key
+[**get_encryption_status**](EncryptionApi.md#get_encryption_status) | **GET** /v1/encryption/status | End-to-end encryption status for the workspace
+[**rotate_encryption_key**](EncryptionApi.md#rotate_encryption_key) | **POST** /v1/encryption/keys/rotate | Re-seal an encryption key under a new password
 
 
 # **batch_lookup_public_keys**
@@ -95,6 +96,8 @@ Name | Type | Description  | Notes
 
 Upload an encryption key pair
 
+Only the mailbox's own webmail session may call this; an API key is refused with 403. The private key is sealed under that mailbox's password, which an administrator never has. `mailbox_email`, if sent, must be the caller's own mailbox. A mailbox that already has a key is starting over: the old key is kept inactive, not destroyed, and the new one starts without a recovery code.
+
 ### Example
 
 * Bearer (lk_live_<prefix>_<secret>) Authentication (bearerAuth):
@@ -175,6 +178,8 @@ Name | Type | Description  | Notes
 
 Store an encryption recovery blob
 
+Only the mailbox's own webmail session may call this; an API key is refused with 403. The private key is sealed under that mailbox's password, which an administrator never has. `mailbox_email`, if sent, must be the caller's own mailbox. The blob is the private key sealed under a recovery code the browser generated; the code itself is never sent. Replaces any earlier one.
+
 ### Example
 
 * Bearer (lk_live_<prefix>_<secret>) Authentication (bearerAuth):
@@ -252,6 +257,8 @@ void (empty response body)
 
 Get encryption key for a mailbox
 
+Anyone in the workspace gets the public key. The mailbox's own webmail session also gets its sealed private key, its sealed recovery copy and the recovery state.
+
 ### Example
 
 * Bearer (lk_live_<prefix>_<secret>) Authentication (bearerAuth):
@@ -326,10 +333,88 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_encryption_status**
+> GetEncryptionStatus200Response get_encryption_status()
+
+End-to-end encryption status for the workspace
+
+For administrators: whether the add-on is on, and for each mailbox whether it has a key and a recovery code. Carries no key material.
+
+### Example
+
+* Bearer (lk_live_<prefix>_<secret>) Authentication (bearerAuth):
+
+```python
+import lockally
+from lockally.models.get_encryption_status200_response import GetEncryptionStatus200Response
+from lockally.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.lockally.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = lockally.Configuration(
+    host = "https://api.lockally.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (lk_live_<prefix>_<secret>): bearerAuth
+configuration = lockally.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with lockally.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = lockally.EncryptionApi(api_client)
+
+    try:
+        # End-to-end encryption status for the workspace
+        api_response = api_instance.get_encryption_status()
+        print("The response of EncryptionApi->get_encryption_status:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling EncryptionApi->get_encryption_status: %s\n" % e)
+```
+
+
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**GetEncryptionStatus200Response**](GetEncryptionStatus200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json, application/problem+json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Status |  -  |
+**401** | Missing, malformed, or invalid API key. |  -  |
+**403** | API key lacks the required scope. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **rotate_encryption_key**
 > rotate_encryption_key(rotate_encryption_key_request)
 
-Rotate an encryption key
+Re-seal an encryption key under a new password
+
+Only the mailbox's own webmail session may call this; an API key is refused with 403. The private key is sealed under that mailbox's password, which an administrator never has. `mailbox_email`, if sent, must be the caller's own mailbox. The key pair does not change, so every message stays readable.
 
 ### Example
 
@@ -364,7 +449,7 @@ with lockally.ApiClient(configuration) as api_client:
     rotate_encryption_key_request = lockally.RotateEncryptionKeyRequest() # RotateEncryptionKeyRequest | 
 
     try:
-        # Rotate an encryption key
+        # Re-seal an encryption key under a new password
         api_instance.rotate_encryption_key(rotate_encryption_key_request)
     except Exception as e:
         print("Exception when calling EncryptionApi->rotate_encryption_key: %s\n" % e)

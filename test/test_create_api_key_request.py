@@ -40,7 +40,8 @@ class TestCreateApiKeyRequest(unittest.TestCase):
                 scopes = [
                     'tenant:read'
                     ],
-                test = True
+                test = True,
+                expires_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f')
             )
         else:
             return CreateApiKeyRequest(

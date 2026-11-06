@@ -19,6 +19,8 @@ Name | Type | Description | Notes
 **status** | **str** |  | 
 **created_at** | **datetime** |  | 
 **updated_at** | **datetime** |  | 
+**external_system** | **str** | The system that owns this contact&#39;s external id. Absent on contacts made by hand. | [optional] 
+**external_id** | **str** | The contact&#39;s id in &#x60;external_system&#x60;. Absent on contacts made by hand. | [optional] 
 
 ## Example
 

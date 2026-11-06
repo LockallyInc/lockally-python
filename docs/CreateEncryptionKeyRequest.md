@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**mailbox_email** | **str** |  | 
+**mailbox_email** | **str** |  | [optional] 
 **public_key** | **str** |  | 
 **encrypted_private_key** | **str** |  | 
 **kdf_params** | **object** |  | [optional] 

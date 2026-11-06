@@ -55,10 +55,17 @@ class TestEncryptionApi(unittest.TestCase):
         """
         pass
 
+    def test_get_encryption_status(self) -> None:
+        """Test case for get_encryption_status
+
+        End-to-end encryption status for the workspace
+        """
+        pass
+
     def test_rotate_encryption_key(self) -> None:
         """Test case for rotate_encryption_key
 
-        Rotate an encryption key
+        Re-seal an encryption key under a new password
         """
         pass
 

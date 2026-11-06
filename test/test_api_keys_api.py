@@ -48,6 +48,20 @@ class TestApiKeysApi(unittest.TestCase):
         """
         pass
 
+    def test_rotate_api_key(self) -> None:
+        """Test case for rotate_api_key
+
+        Rotate an API key
+        """
+        pass
+
+    def test_update_api_key(self) -> None:
+        """Test case for update_api_key
+
+        Update an API key
+        """
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()

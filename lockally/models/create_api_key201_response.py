@@ -19,7 +19,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from uuid import UUID
 from typing import Optional, Set
@@ -38,8 +38,11 @@ class CreateApiKey201Response(BaseModel):
     last_used_at: Optional[datetime] = None
     revoked_at: Optional[datetime] = None
     created_at: datetime
+    test: Optional[StrictBool] = Field(default=None, description="True for an lk_test_* key: the whole request path runs but a send never reaches the mail server and nothing counts against the account.")
+    expires_at: Optional[datetime] = Field(default=None, description="When the key stops authenticating. Null means it does not expire, which is how every key behaved before expiry existed. Enforced at authentication, so the key fails the first request after this moment rather than whenever a sweep runs. ")
+    rotated_to: Optional[UUID] = Field(default=None, description="The successor issued by `POST /v1/api-keys/{id}/rotate`. Set on the PREDECESSOR, so you can see which key replaced this one while both still work through the overlap window. ")
     secret: StrictStr = Field(description="The full `lk_live_<prefix>_<secret>` token. Shown ONCE.", json_schema_extra={"examples": ["lk_live_fbl73bhj_sfvqy7y757cnvu33bgqdpyrrhq3tyyf3"]})
-    __properties: ClassVar[List[str]] = ["id", "tenant_id", "prefix", "scopes", "label", "last_used_at", "revoked_at", "created_at", "secret"]
+    __properties: ClassVar[List[str]] = ["id", "tenant_id", "prefix", "scopes", "label", "last_used_at", "revoked_at", "created_at", "test", "expires_at", "rotated_to", "secret"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -100,6 +103,9 @@ class CreateApiKey201Response(BaseModel):
             "last_used_at": obj.get("last_used_at"),
             "revoked_at": obj.get("revoked_at"),
             "created_at": obj.get("created_at"),
+            "test": obj.get("test"),
+            "expires_at": obj.get("expires_at"),
+            "rotated_to": obj.get("rotated_to"),
             "secret": obj.get("secret")
         })
         return _obj

@@ -41,6 +41,8 @@ class MessageDetail(BaseModel):
     updated_at: datetime
     bounce_reason: Optional[StrictStr] = None
     size_bytes: Optional[StrictInt] = None
+    metadata: Optional[Dict[str, StrictStr]] = Field(default=None, description="The sender's own key/value from the send request. Always present; `{}` when none was set.")
+    tags: Optional[List[StrictStr]] = Field(default=None, description="Grouping labels, lowercased and deduplicated. Always present; `[]` when none were set.")
     var_from: Optional[StrictStr] = Field(default=None, alias="from")
     to: Optional[List[StrictStr]] = None
     cc: Optional[List[StrictStr]] = None
@@ -48,7 +50,7 @@ class MessageDetail(BaseModel):
     text: Optional[StrictStr] = None
     html: Optional[StrictStr] = None
     headers: Optional[Dict[str, StrictStr]] = None
-    __properties: ClassVar[List[str]] = ["id", "tenant_id", "message_id", "sender", "recipients", "subject", "status", "queued_at", "updated_at", "bounce_reason", "size_bytes", "from", "to", "cc", "bcc", "text", "html", "headers"]
+    __properties: ClassVar[List[str]] = ["id", "tenant_id", "message_id", "sender", "recipients", "subject", "status", "queued_at", "updated_at", "bounce_reason", "size_bytes", "metadata", "tags", "from", "to", "cc", "bcc", "text", "html", "headers"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -119,6 +121,8 @@ class MessageDetail(BaseModel):
             "updated_at": obj.get("updated_at"),
             "bounce_reason": obj.get("bounce_reason"),
             "size_bytes": obj.get("size_bytes"),
+            "metadata": obj.get("metadata"),
+            "tags": obj.get("tags"),
             "from": obj.get("from"),
             "to": obj.get("to"),
             "cc": obj.get("cc"),

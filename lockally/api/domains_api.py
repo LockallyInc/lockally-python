@@ -16,7 +16,9 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import StrictStr
+from pydantic import Field, StrictStr, field_validator
+from typing import Optional
+from typing_extensions import Annotated
 from lockally.models.create_domain_request import CreateDomainRequest
 from lockally.models.domain import Domain
 from lockally.models.list_domains200_response import ListDomains200Response
@@ -1689,6 +1691,8 @@ class DomainsApi:
     @validate_call
     def list_domains(
         self,
+        sort: Annotated[Optional[StrictStr], Field(description="Field to order by. This list holds tens of rows per account, so every column is offered and none needs an index.")] = None,
+        order: Annotated[Optional[StrictStr], Field(description="Defaults to desc for the default field and asc for any other. Always tie-broken on id, so the order is total.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1706,6 +1710,10 @@ class DomainsApi:
 
         Returns every domain registered under the calling tenant.
 
+        :param sort: Field to order by. This list holds tens of rows per account, so every column is offered and none needs an index.
+        :type sort: str
+        :param order: Defaults to desc for the default field and asc for any other. Always tie-broken on id, so the order is total.
+        :type order: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1729,6 +1737,8 @@ class DomainsApi:
         """ # noqa: E501
 
         _param = self._list_domains_serialize(
+            sort=sort,
+            order=order,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1754,6 +1764,8 @@ class DomainsApi:
     @validate_call
     def list_domains_with_http_info(
         self,
+        sort: Annotated[Optional[StrictStr], Field(description="Field to order by. This list holds tens of rows per account, so every column is offered and none needs an index.")] = None,
+        order: Annotated[Optional[StrictStr], Field(description="Defaults to desc for the default field and asc for any other. Always tie-broken on id, so the order is total.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1771,6 +1783,10 @@ class DomainsApi:
 
         Returns every domain registered under the calling tenant.
 
+        :param sort: Field to order by. This list holds tens of rows per account, so every column is offered and none needs an index.
+        :type sort: str
+        :param order: Defaults to desc for the default field and asc for any other. Always tie-broken on id, so the order is total.
+        :type order: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1794,6 +1810,8 @@ class DomainsApi:
         """ # noqa: E501
 
         _param = self._list_domains_serialize(
+            sort=sort,
+            order=order,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1819,6 +1837,8 @@ class DomainsApi:
     @validate_call
     def list_domains_without_preload_content(
         self,
+        sort: Annotated[Optional[StrictStr], Field(description="Field to order by. This list holds tens of rows per account, so every column is offered and none needs an index.")] = None,
+        order: Annotated[Optional[StrictStr], Field(description="Defaults to desc for the default field and asc for any other. Always tie-broken on id, so the order is total.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1836,6 +1856,10 @@ class DomainsApi:
 
         Returns every domain registered under the calling tenant.
 
+        :param sort: Field to order by. This list holds tens of rows per account, so every column is offered and none needs an index.
+        :type sort: str
+        :param order: Defaults to desc for the default field and asc for any other. Always tie-broken on id, so the order is total.
+        :type order: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1859,6 +1883,8 @@ class DomainsApi:
         """ # noqa: E501
 
         _param = self._list_domains_serialize(
+            sort=sort,
+            order=order,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1879,6 +1905,8 @@ class DomainsApi:
 
     def _list_domains_serialize(
         self,
+        sort,
+        order,
         _request_auth,
         _content_type,
         _headers,
@@ -1901,6 +1929,14 @@ class DomainsApi:
 
         # process the path parameters
         # process the query parameters
+        if sort is not None:
+            
+            _query_params.append(('sort', sort))
+            
+        if order is not None:
+            
+            _query_params.append(('order', order))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter

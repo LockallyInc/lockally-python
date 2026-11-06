@@ -19,7 +19,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, StrictBool
 from typing import Any, ClassVar, Dict, List, Optional
 from uuid import UUID
 from typing import Optional, Set
@@ -33,7 +33,8 @@ class CreateEncryptionKey201Response(BaseModel):
     id: Optional[UUID] = None
     mailbox_id: Optional[UUID] = None
     created_at: Optional[datetime] = None
-    __properties: ClassVar[List[str]] = ["id", "mailbox_id", "created_at"]
+    replaced_old: Optional[StrictBool] = None
+    __properties: ClassVar[List[str]] = ["id", "mailbox_id", "created_at", "replaced_old"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -88,7 +89,8 @@ class CreateEncryptionKey201Response(BaseModel):
         _obj = cls.model_validate({
             "id": obj.get("id"),
             "mailbox_id": obj.get("mailbox_id"),
-            "created_at": obj.get("created_at")
+            "created_at": obj.get("created_at"),
+            "replaced_old": obj.get("replaced_old")
         })
         return _obj
 

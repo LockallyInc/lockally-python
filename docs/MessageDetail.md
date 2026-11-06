@@ -17,6 +17,8 @@ Name | Type | Description | Notes
 **updated_at** | **datetime** |  | 
 **bounce_reason** | **str** |  | [optional] 
 **size_bytes** | **int** |  | [optional] 
+**metadata** | **Dict[str, str]** | The sender&#39;s own key/value from the send request. Always present; &#x60;{}&#x60; when none was set. | [optional] 
+**tags** | **List[str]** | Grouping labels, lowercased and deduplicated. Always present; &#x60;[]&#x60; when none were set. | [optional] 
 **var_from** | **str** |  | [optional] 
 **to** | **List[str]** |  | [optional] 
 **cc** | **List[str]** |  | [optional] 

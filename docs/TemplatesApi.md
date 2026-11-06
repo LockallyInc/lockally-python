@@ -243,7 +243,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_templates**
-> ListTemplates200Response list_templates()
+> ListTemplates200Response list_templates(sort=sort, order=order)
 
 List templates
 
@@ -277,10 +277,12 @@ configuration = lockally.Configuration(
 with lockally.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = lockally.TemplatesApi(api_client)
+    sort = name # str | Field to order by. This list holds tens of rows per account, so every column is offered and none needs an index. (optional) (default to name)
+    order = 'order_example' # str | Defaults to asc for the default field and asc for any other. Always tie-broken on id, so the order is total. (optional)
 
     try:
         # List templates
-        api_response = api_instance.list_templates()
+        api_response = api_instance.list_templates(sort=sort, order=order)
         print("The response of TemplatesApi->list_templates:\n")
         pprint(api_response)
     except Exception as e:
@@ -291,7 +293,11 @@ with lockally.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sort** | **str**| Field to order by. This list holds tens of rows per account, so every column is offered and none needs an index. | [optional] [default to name]
+ **order** | **str**| Defaults to asc for the default field and asc for any other. Always tie-broken on id, so the order is total. | [optional] 
 
 ### Return type
 

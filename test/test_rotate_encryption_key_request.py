@@ -42,7 +42,6 @@ class TestRotateEncryptionKeyRequest(unittest.TestCase):
             )
         else:
             return RotateEncryptionKeyRequest(
-                mailbox_email = '',
                 encrypted_private_key = '',
         )
         """

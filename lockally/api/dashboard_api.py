@@ -16,13 +16,13 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from typing import Any, Dict
 from lockally.models.get_audit_summary200_response import GetAuditSummary200Response
 from lockally.models.get_domains_status200_response import GetDomainsStatus200Response
 from lockally.models.get_integrations_summary200_response import GetIntegrationsSummary200Response
 from lockally.models.get_security200_response import GetSecurity200Response
 from lockally.models.get_storage200_response import GetStorage200Response
 from lockally.models.get_user_insights200_response import GetUserInsights200Response
+from lockally.models.tenant_health_report import TenantHealthReport
 
 from lockally.api_client import ApiClient, RequestSerialized
 from lockally.api_response import ApiResponse
@@ -1307,7 +1307,7 @@ class DashboardApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> object:
+    ) -> TenantHealthReport:
         """Full tenant health report
 
 
@@ -1341,7 +1341,7 @@ class DashboardApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
+            '200': "TenantHealthReport",
             '401': "Problem",
             '403': "Problem",
         }
@@ -1371,7 +1371,7 @@ class DashboardApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[object]:
+    ) -> ApiResponse[TenantHealthReport]:
         """Full tenant health report
 
 
@@ -1405,7 +1405,7 @@ class DashboardApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
+            '200': "TenantHealthReport",
             '401': "Problem",
             '403': "Problem",
         }
@@ -1469,7 +1469,7 @@ class DashboardApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
+            '200': "TenantHealthReport",
             '401': "Problem",
             '403': "Problem",
         }

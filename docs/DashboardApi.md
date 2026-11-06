@@ -384,7 +384,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_tenant_health**
-> object get_tenant_health()
+> TenantHealthReport get_tenant_health()
 
 Full tenant health report
 
@@ -394,6 +394,7 @@ Full tenant health report
 
 ```python
 import lockally
+from lockally.models.tenant_health_report import TenantHealthReport
 from lockally.rest import ApiException
 from pprint import pprint
 
@@ -435,7 +436,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**object**
+[**TenantHealthReport**](TenantHealthReport.md)
 
 ### Authorization
 

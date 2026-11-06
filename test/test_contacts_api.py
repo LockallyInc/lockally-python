@@ -27,6 +27,13 @@ class TestContactsApi(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
+    def test_bulk_upsert_external_contacts(self) -> None:
+        """Test case for bulk_upsert_external_contacts
+
+        Create or update up to 500 contacts by their ids in another system
+        """
+        pass
+
     def test_create_contact(self) -> None:
         """Test case for create_contact
 
@@ -38,6 +45,13 @@ class TestContactsApi(unittest.TestCase):
         """Test case for delete_contact
 
         Delete a contact
+        """
+        pass
+
+    def test_delete_external_contact(self) -> None:
+        """Test case for delete_external_contact
+
+        Delete a contact by its id in another system
         """
         pass
 
@@ -55,6 +69,13 @@ class TestContactsApi(unittest.TestCase):
         """
         pass
 
+    def test_get_external_contact(self) -> None:
+        """Test case for get_external_contact
+
+        Get a contact by its id in another system
+        """
+        pass
+
     def test_list_contacts(self) -> None:
         """Test case for list_contacts
 
@@ -66,6 +87,13 @@ class TestContactsApi(unittest.TestCase):
         """Test case for update_contact
 
         Update a contact
+        """
+        pass
+
+    def test_upsert_external_contact(self) -> None:
+        """Test case for upsert_external_contact
+
+        Create or update a contact by its id in another system
         """
         pass
 

@@ -42,7 +42,8 @@ class TestSendEmailBatch200Response(unittest.TestCase):
                         id = '', 
                         message_id = '', 
                         status = 'queued', 
-                        error = '', )
+                        error = '', 
+                        warning = '', )
                     ]
             )
         else:

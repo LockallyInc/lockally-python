@@ -50,7 +50,13 @@ class TestListMessages200Response(unittest.TestCase):
                         queued_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                         updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                         bounce_reason = '', 
-                        size_bytes = 56, )
+                        size_bytes = 56, 
+                        metadata = {
+                            'key' : ''
+                            }, 
+                        tags = [
+                            ''
+                            ], )
                     ],
                 next_cursor = ''
             )
@@ -70,7 +76,13 @@ class TestListMessages200Response(unittest.TestCase):
                         queued_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                         updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                         bounce_reason = '', 
-                        size_bytes = 56, )
+                        size_bytes = 56, 
+                        metadata = {
+                            'key' : ''
+                            }, 
+                        tags = [
+                            ''
+                            ], )
                     ],
         )
         """

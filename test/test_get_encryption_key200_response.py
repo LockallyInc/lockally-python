@@ -41,7 +41,12 @@ class TestGetEncryptionKey200Response(unittest.TestCase):
                 public_key = '',
                 encrypted_private_key = '',
                 kdf_params = None,
-                version = 56
+                version = 56,
+                created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                rotated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                has_recovery = True,
+                recovery_set_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                recovery_blob = ''
             )
         else:
             return GetEncryptionKey200Response(

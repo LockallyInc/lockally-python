@@ -68,7 +68,10 @@ class TestSendEmailBatchRequest(unittest.TestCase):
                                 content_type = 'application/pdf', 
                                 content_base64 = '', )
                             ], )
-                    ]
+                    ],
+                variables = {
+                    'key' : ''
+                    }
             )
         else:
             return SendEmailBatchRequest(
