@@ -7,16 +7,12 @@ Method | HTTP request | Description
 [**add_shared_member**](MailboxesApi.md#add_shared_member) | **POST** /v1/mailboxes/{email}/members | Add a shared mailbox member
 [**create_mailbox**](MailboxesApi.md#create_mailbox) | **POST** /v1/mailboxes | Create a mailbox
 [**delete_mailbox**](MailboxesApi.md#delete_mailbox) | **DELETE** /v1/mailboxes/{email} | Soft-delete a mailbox
-[**delete_vacation_responder**](MailboxesApi.md#delete_vacation_responder) | **DELETE** /v1/mailboxes/{email}/vacation | Remove the vacation responder
 [**download_mailbox_export**](MailboxesApi.md#download_mailbox_export) | **GET** /v1/mailboxes/{email}/export/download | Download a previously-issued mailbox export
 [**export_mailbox**](MailboxesApi.md#export_mailbox) | **POST** /v1/mailboxes/{email}/export | Request a mailbox export
 [**get_mailbox**](MailboxesApi.md#get_mailbox) | **GET** /v1/mailboxes/{email} | Get a mailbox
-[**get_vacation_responder**](MailboxesApi.md#get_vacation_responder) | **GET** /v1/mailboxes/{email}/vacation | Get the vacation responder
 [**list_mailboxes**](MailboxesApi.md#list_mailboxes) | **GET** /v1/mailboxes | List mailboxes
 [**list_shared_members**](MailboxesApi.md#list_shared_members) | **GET** /v1/mailboxes/{email}/members | List shared mailbox members
-[**list_vacation_responders**](MailboxesApi.md#list_vacation_responders) | **GET** /v1/vacation | List all vacation responders
 [**remove_shared_member**](MailboxesApi.md#remove_shared_member) | **DELETE** /v1/mailboxes/{email}/members/{memberEmail} | Remove a shared mailbox member
-[**set_vacation_responder**](MailboxesApi.md#set_vacation_responder) | **PUT** /v1/mailboxes/{email}/vacation | Set the vacation responder
 [**update_mailbox**](MailboxesApi.md#update_mailbox) | **PATCH** /v1/mailboxes/{email} | Update a mailbox
 
 
@@ -279,83 +275,6 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **delete_vacation_responder**
-> delete_vacation_responder(email)
-
-Remove the vacation responder
-
-Idempotent, 204 whether or not a row existed.
-
-### Example
-
-* Bearer (lk_live_<prefix>_<secret>) Authentication (bearerAuth):
-
-```python
-import lockally
-from lockally.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://api.lockally.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = lockally.Configuration(
-    host = "https://api.lockally.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure Bearer authorization (lk_live_<prefix>_<secret>): bearerAuth
-configuration = lockally.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
-# Enter a context with an instance of the API client
-with lockally.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = lockally.MailboxesApi(api_client)
-    email = 'email_example' # str | 
-
-    try:
-        # Remove the vacation responder
-        api_instance.delete_vacation_responder(email)
-    except Exception as e:
-        print("Exception when calling MailboxesApi->delete_vacation_responder: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **email** | **str**|  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/problem+json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**204** | Deleted. |  -  |
-**401** | Missing, malformed, or invalid API key. |  -  |
-**403** | API key lacks the required scope. |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **download_mailbox_export**
 > bytes download_mailbox_export(email, token)
 
@@ -606,87 +525,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_vacation_responder**
-> VacationResponder get_vacation_responder(email)
-
-Get the vacation responder
-
-Returns the stored vacation rule or 404 if none is set.
-
-### Example
-
-* Bearer (lk_live_<prefix>_<secret>) Authentication (bearerAuth):
-
-```python
-import lockally
-from lockally.models.vacation_responder import VacationResponder
-from lockally.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://api.lockally.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = lockally.Configuration(
-    host = "https://api.lockally.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure Bearer authorization (lk_live_<prefix>_<secret>): bearerAuth
-configuration = lockally.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
-# Enter a context with an instance of the API client
-with lockally.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = lockally.MailboxesApi(api_client)
-    email = 'email_example' # str | 
-
-    try:
-        # Get the vacation responder
-        api_response = api_instance.get_vacation_responder(email)
-        print("The response of MailboxesApi->get_vacation_responder:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling MailboxesApi->get_vacation_responder: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **email** | **str**|  | 
-
-### Return type
-
-[**VacationResponder**](VacationResponder.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Vacation responder. |  -  |
-**401** | Missing, malformed, or invalid API key. |  -  |
-**403** | API key lacks the required scope. |  -  |
-**404** | Resource not found under the calling tenant. |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **list_mailboxes**
 > ListMailboxes200Response list_mailboxes(limit=limit)
 
@@ -848,82 +686,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **list_vacation_responders**
-> ListVacationResponders200Response list_vacation_responders()
-
-List all vacation responders
-
-Returns every vacation responder for the calling tenant.
-
-### Example
-
-* Bearer (lk_live_<prefix>_<secret>) Authentication (bearerAuth):
-
-```python
-import lockally
-from lockally.models.list_vacation_responders200_response import ListVacationResponders200Response
-from lockally.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://api.lockally.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = lockally.Configuration(
-    host = "https://api.lockally.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure Bearer authorization (lk_live_<prefix>_<secret>): bearerAuth
-configuration = lockally.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
-# Enter a context with an instance of the API client
-with lockally.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = lockally.MailboxesApi(api_client)
-
-    try:
-        # List all vacation responders
-        api_response = api_instance.list_vacation_responders()
-        print("The response of MailboxesApi->list_vacation_responders:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling MailboxesApi->list_vacation_responders: %s\n" % e)
-```
-
-
-
-### Parameters
-
-This endpoint does not need any parameter.
-
-### Return type
-
-[**ListVacationResponders200Response**](ListVacationResponders200Response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | List. |  -  |
-**401** | Missing, malformed, or invalid API key. |  -  |
-**403** | API key lacks the required scope. |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **remove_shared_member**
 > remove_shared_member(email, member_email)
 
@@ -996,94 +758,6 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | No content |  -  |
-**401** | Missing, malformed, or invalid API key. |  -  |
-**403** | API key lacks the required scope. |  -  |
-**404** | Resource not found under the calling tenant. |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **set_vacation_responder**
-> VacationResponder set_vacation_responder(email, set_vacation_responder_request)
-
-Set the vacation responder
-
-Upsert, same endpoint creates or replaces the rule. Clears
-`synced_at`; the rule is staged until a later sync
-pushes it to the mail server.
-
-
-### Example
-
-* Bearer (lk_live_<prefix>_<secret>) Authentication (bearerAuth):
-
-```python
-import lockally
-from lockally.models.set_vacation_responder_request import SetVacationResponderRequest
-from lockally.models.vacation_responder import VacationResponder
-from lockally.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://api.lockally.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = lockally.Configuration(
-    host = "https://api.lockally.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure Bearer authorization (lk_live_<prefix>_<secret>): bearerAuth
-configuration = lockally.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
-# Enter a context with an instance of the API client
-with lockally.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = lockally.MailboxesApi(api_client)
-    email = 'email_example' # str | 
-    set_vacation_responder_request = lockally.SetVacationResponderRequest() # SetVacationResponderRequest | 
-
-    try:
-        # Set the vacation responder
-        api_response = api_instance.set_vacation_responder(email, set_vacation_responder_request)
-        print("The response of MailboxesApi->set_vacation_responder:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling MailboxesApi->set_vacation_responder: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **email** | **str**|  | 
- **set_vacation_responder_request** | [**SetVacationResponderRequest**](SetVacationResponderRequest.md)|  | 
-
-### Return type
-
-[**VacationResponder**](VacationResponder.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Saved. |  -  |
-**400** | Malformed request. |  -  |
 **401** | Missing, malformed, or invalid API key. |  -  |
 **403** | API key lacks the required scope. |  -  |
 **404** | Resource not found under the calling tenant. |  -  |

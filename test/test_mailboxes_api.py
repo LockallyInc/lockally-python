@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    lockally control plane
+    Lockally API
 
-    The lockally control plane lets integrators and direct customers manage everything except actual mail data flow (which uses standard JMAP / IMAP / SMTP-submission against the data plane endpoints).  **Authentication.** All `/v1/*` endpoints require a Bearer API key in the `Authorization` header. Keys are formatted `lk_live_<8-char-prefix>_<32-char-secret>`, or `lk_test_<...>` for a test key. Create keys in the dashboard, or with `POST /v1/api-keys` using a key that holds `tenant:admin`.  The key's plan is checked on every request, so a key stops working if the account moves to a plan without API access, and works again if it moves back.  **Errors.** Failures return [RFC 9457](https://www.rfc-editor.org/rfc/rfc9457) `application/problem+json` documents.  **Scopes.** Each endpoint requires a specific scope on the presented key. Insufficient scope returns `403` with the required scope name in `detail`. 
+    Official Lockally SDK for Python: send email and manage mailboxes, domains and webhooks through the Lockally API.  **Authentication.** All `/v1/*` endpoints require a Bearer API key in the `Authorization` header. Keys are formatted `lk_live_<8-char-prefix>_<32-char-secret>`, or `lk_test_<...>` for a test key. Create keys in the dashboard, or with `POST /v1/api-keys` using a key that holds `tenant:admin`.  The key's plan is checked on every request, so a key stops working if the account moves to a plan without API access, and works again if it moves back.  **Errors.** Failures return [RFC 9457](https://www.rfc-editor.org/rfc/rfc9457) `application/problem+json` documents.  **Scopes.** Each endpoint requires a specific scope on the presented key. Insufficient scope returns `403` with the required scope name in `detail`. 
 
     The version of the OpenAPI document: 0.1.0
     Contact: support@lockally.com
@@ -48,13 +48,6 @@ class TestMailboxesApi(unittest.TestCase):
         """
         pass
 
-    def test_delete_vacation_responder(self) -> None:
-        """Test case for delete_vacation_responder
-
-        Remove the vacation responder
-        """
-        pass
-
     def test_download_mailbox_export(self) -> None:
         """Test case for download_mailbox_export
 
@@ -76,13 +69,6 @@ class TestMailboxesApi(unittest.TestCase):
         """
         pass
 
-    def test_get_vacation_responder(self) -> None:
-        """Test case for get_vacation_responder
-
-        Get the vacation responder
-        """
-        pass
-
     def test_list_mailboxes(self) -> None:
         """Test case for list_mailboxes
 
@@ -97,24 +83,10 @@ class TestMailboxesApi(unittest.TestCase):
         """
         pass
 
-    def test_list_vacation_responders(self) -> None:
-        """Test case for list_vacation_responders
-
-        List all vacation responders
-        """
-        pass
-
     def test_remove_shared_member(self) -> None:
         """Test case for remove_shared_member
 
         Remove a shared mailbox member
-        """
-        pass
-
-    def test_set_vacation_responder(self) -> None:
-        """Test case for set_vacation_responder
-
-        Set the vacation responder
         """
         pass
 

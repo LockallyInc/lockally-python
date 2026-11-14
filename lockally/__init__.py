@@ -3,9 +3,9 @@
 # flake8: noqa
 
 """
-    lockally control plane
+    Lockally API
 
-    The lockally control plane lets integrators and direct customers manage everything except actual mail data flow (which uses standard JMAP / IMAP / SMTP-submission against the data plane endpoints).  **Authentication.** All `/v1/*` endpoints require a Bearer API key in the `Authorization` header. Keys are formatted `lk_live_<8-char-prefix>_<32-char-secret>`, or `lk_test_<...>` for a test key. Create keys in the dashboard, or with `POST /v1/api-keys` using a key that holds `tenant:admin`.  The key's plan is checked on every request, so a key stops working if the account moves to a plan without API access, and works again if it moves back.  **Errors.** Failures return [RFC 9457](https://www.rfc-editor.org/rfc/rfc9457) `application/problem+json` documents.  **Scopes.** Each endpoint requires a specific scope on the presented key. Insufficient scope returns `403` with the required scope name in `detail`. 
+    Official Lockally SDK for Python: send email and manage mailboxes, domains and webhooks through the Lockally API.  **Authentication.** All `/v1/*` endpoints require a Bearer API key in the `Authorization` header. Keys are formatted `lk_live_<8-char-prefix>_<32-char-secret>`, or `lk_test_<...>` for a test key. Create keys in the dashboard, or with `POST /v1/api-keys` using a key that holds `tenant:admin`.  The key's plan is checked on every request, so a key stops working if the account moves to a plan without API access, and works again if it moves back.  **Errors.** Failures return [RFC 9457](https://www.rfc-editor.org/rfc/rfc9457) `application/problem+json` documents.  **Scopes.** Each endpoint requires a specific scope on the presented key. Insufficient scope returns `403` with the required scope name in `detail`. 
 
     The version of the OpenAPI document: 0.1.0
     Contact: support@lockally.com
@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "0.4.0"
+__version__ = "0.5.0"
 
 # Define package exports
 __all__ = [
@@ -198,7 +198,6 @@ __all__ = [
     "ListSuppressions200Response",
     "ListTemplates200Response",
     "ListUsers200Response",
-    "ListVacationResponders200Response",
     "ListWebhooks200Response",
     "Mailbox",
     "MailboxGrant",
@@ -238,7 +237,6 @@ __all__ = [
     "SendEmailRequest",
     "SendEmailRequestAttachmentsInner",
     "SendMessage",
-    "SetVacationResponderRequest",
     "SharedMember",
     "SignupRequest",
     "SimulatedInbound",
@@ -279,8 +277,6 @@ __all__ = [
     "UpdateWebhookRequest",
     "User",
     "UserEvent",
-    "VacationParams",
-    "VacationResponder",
     "Webhook",
     "Whoami",
     "WhoamiKey",
@@ -471,7 +467,6 @@ from lockally.models.list_shared_members200_response import ListSharedMembers200
 from lockally.models.list_suppressions200_response import ListSuppressions200Response as ListSuppressions200Response
 from lockally.models.list_templates200_response import ListTemplates200Response as ListTemplates200Response
 from lockally.models.list_users200_response import ListUsers200Response as ListUsers200Response
-from lockally.models.list_vacation_responders200_response import ListVacationResponders200Response as ListVacationResponders200Response
 from lockally.models.list_webhooks200_response import ListWebhooks200Response as ListWebhooks200Response
 from lockally.models.mailbox import Mailbox as Mailbox
 from lockally.models.mailbox_grant import MailboxGrant as MailboxGrant
@@ -511,7 +506,6 @@ from lockally.models.send_email_batch_request import SendEmailBatchRequest as Se
 from lockally.models.send_email_request import SendEmailRequest as SendEmailRequest
 from lockally.models.send_email_request_attachments_inner import SendEmailRequestAttachmentsInner as SendEmailRequestAttachmentsInner
 from lockally.models.send_message import SendMessage as SendMessage
-from lockally.models.set_vacation_responder_request import SetVacationResponderRequest as SetVacationResponderRequest
 from lockally.models.shared_member import SharedMember as SharedMember
 from lockally.models.signup_request import SignupRequest as SignupRequest
 from lockally.models.simulated_inbound import SimulatedInbound as SimulatedInbound
@@ -552,8 +546,6 @@ from lockally.models.update_user_request import UpdateUserRequest as UpdateUserR
 from lockally.models.update_webhook_request import UpdateWebhookRequest as UpdateWebhookRequest
 from lockally.models.user import User as User
 from lockally.models.user_event import UserEvent as UserEvent
-from lockally.models.vacation_params import VacationParams as VacationParams
-from lockally.models.vacation_responder import VacationResponder as VacationResponder
 from lockally.models.webhook import Webhook as Webhook
 from lockally.models.whoami import Whoami as Whoami
 from lockally.models.whoami_key import WhoamiKey as WhoamiKey

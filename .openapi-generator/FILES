@@ -163,7 +163,6 @@ docs/ListSharedMembers200Response.md
 docs/ListSuppressions200Response.md
 docs/ListTemplates200Response.md
 docs/ListUsers200Response.md
-docs/ListVacationResponders200Response.md
 docs/ListWebhooks200Response.md
 docs/Mailbox.md
 docs/MailboxGrant.md
@@ -207,7 +206,6 @@ docs/SendEmailBatchRequest.md
 docs/SendEmailRequest.md
 docs/SendEmailRequestAttachmentsInner.md
 docs/SendMessage.md
-docs/SetVacationResponderRequest.md
 docs/SharedMember.md
 docs/SignupApi.md
 docs/SignupRequest.md
@@ -254,8 +252,6 @@ docs/UpdateWebhookRequest.md
 docs/User.md
 docs/UserEvent.md
 docs/UsersApi.md
-docs/VacationParams.md
-docs/VacationResponder.md
 docs/Webhook.md
 docs/WebhooksApi.md
 docs/Whoami.md
@@ -439,7 +435,6 @@ lockally/models/list_shared_members200_response.py
 lockally/models/list_suppressions200_response.py
 lockally/models/list_templates200_response.py
 lockally/models/list_users200_response.py
-lockally/models/list_vacation_responders200_response.py
 lockally/models/list_webhooks200_response.py
 lockally/models/mailbox.py
 lockally/models/mailbox_grant.py
@@ -479,7 +474,6 @@ lockally/models/send_email_batch_request.py
 lockally/models/send_email_request.py
 lockally/models/send_email_request_attachments_inner.py
 lockally/models/send_message.py
-lockally/models/set_vacation_responder_request.py
 lockally/models/shared_member.py
 lockally/models/signup_request.py
 lockally/models/simulated_inbound.py
@@ -520,8 +514,6 @@ lockally/models/update_user_request.py
 lockally/models/update_webhook_request.py
 lockally/models/user.py
 lockally/models/user_event.py
-lockally/models/vacation_params.py
-lockally/models/vacation_responder.py
 lockally/models/webhook.py
 lockally/models/whoami.py
 lockally/models/whoami_key.py
@@ -693,7 +685,6 @@ test/test_list_shared_members200_response.py
 test/test_list_suppressions200_response.py
 test/test_list_templates200_response.py
 test/test_list_users200_response.py
-test/test_list_vacation_responders200_response.py
 test/test_list_webhooks200_response.py
 test/test_mailbox.py
 test/test_mailbox_grant.py
@@ -737,7 +728,6 @@ test/test_send_email_batch_request.py
 test/test_send_email_request.py
 test/test_send_email_request_attachments_inner.py
 test/test_send_message.py
-test/test_set_vacation_responder_request.py
 test/test_shared_member.py
 test/test_signup_api.py
 test/test_signup_request.py
@@ -784,8 +774,6 @@ test/test_update_webhook_request.py
 test/test_user.py
 test/test_user_event.py
 test/test_users_api.py
-test/test_vacation_params.py
-test/test_vacation_responder.py
 test/test_webhook.py
 test/test_webhooks_api.py
 test/test_whoami.py

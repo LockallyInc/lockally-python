@@ -1,7 +1,7 @@
 """
-    lockally control plane
+    Lockally API
 
-    The lockally control plane lets integrators and direct customers manage everything except actual mail data flow (which uses standard JMAP / IMAP / SMTP-submission against the data plane endpoints).  **Authentication.** All `/v1/*` endpoints require a Bearer API key in the `Authorization` header. Keys are formatted `lk_live_<8-char-prefix>_<32-char-secret>`, or `lk_test_<...>` for a test key. Create keys in the dashboard, or with `POST /v1/api-keys` using a key that holds `tenant:admin`.  The key's plan is checked on every request, so a key stops working if the account moves to a plan without API access, and works again if it moves back.  **Errors.** Failures return [RFC 9457](https://www.rfc-editor.org/rfc/rfc9457) `application/problem+json` documents.  **Scopes.** Each endpoint requires a specific scope on the presented key. Insufficient scope returns `403` with the required scope name in `detail`. 
+    Official Lockally SDK for Python: send email and manage mailboxes, domains and webhooks through the Lockally API.  **Authentication.** All `/v1/*` endpoints require a Bearer API key in the `Authorization` header. Keys are formatted `lk_live_<8-char-prefix>_<32-char-secret>`, or `lk_test_<...>` for a test key. Create keys in the dashboard, or with `POST /v1/api-keys` using a key that holds `tenant:admin`.  The key's plan is checked on every request, so a key stops working if the account moves to a plan without API access, and works again if it moves back.  **Errors.** Failures return [RFC 9457](https://www.rfc-editor.org/rfc/rfc9457) `application/problem+json` documents.  **Scopes.** Each endpoint requires a specific scope on the presented key. Insufficient scope returns `403` with the required scope name in `detail`. 
 
     The version of the OpenAPI document: 0.1.0
     Contact: support@lockally.com
@@ -20,7 +20,7 @@ from setuptools import setup, find_packages  # noqa: H301
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
 NAME = "lockally"
-VERSION = "0.4.0"
+VERSION = "0.5.0"
 PYTHON_REQUIRES = ">= 3.10"
 REQUIRES = [
     "urllib3 >= 2.1.0, < 3.0.0",
@@ -32,18 +32,19 @@ REQUIRES = [
 setup(
     name=NAME,
     version=VERSION,
-    description="lockally control plane",
-    author="lockally support",
+    description="Official Lockally SDK for Python: send email and manage mailboxes, domains and webhooks through the Lockally API.",
+    author="Lockally",
     author_email="support@lockally.com",
-    url="",
-    keywords=["OpenAPI", "OpenAPI-Generator", "lockally control plane"],
+    url="https://lockally.com",
+    project_urls={"Repository": "https://github.com/LockallyInc/lockally-python"},
+    keywords=["lockally", "email", "email-api", "transactional-email", "sdk"],
     install_requires=REQUIRES,
     packages=find_packages(exclude=["test", "tests"]),
     include_package_data=True,
-    license="AGPL-3.0-only OR LicenseRef-LOC-Commercial",
+    license="MIT",
     long_description_content_type='text/markdown',
     long_description="""\
-    The lockally control plane lets integrators and direct customers manage everything except actual mail data flow (which uses standard JMAP / IMAP / SMTP-submission against the data plane endpoints).  **Authentication.** All &#x60;/v1/*&#x60; endpoints require a Bearer API key in the &#x60;Authorization&#x60; header. Keys are formatted &#x60;lk_live_&lt;8-char-prefix&gt;_&lt;32-char-secret&gt;&#x60;, or &#x60;lk_test_&lt;...&gt;&#x60; for a test key. Create keys in the dashboard, or with &#x60;POST /v1/api-keys&#x60; using a key that holds &#x60;tenant:admin&#x60;.  The key&#39;s plan is checked on every request, so a key stops working if the account moves to a plan without API access, and works again if it moves back.  **Errors.** Failures return [RFC 9457](https://www.rfc-editor.org/rfc/rfc9457) &#x60;application/problem+json&#x60; documents.  **Scopes.** Each endpoint requires a specific scope on the presented key. Insufficient scope returns &#x60;403&#x60; with the required scope name in &#x60;detail&#x60;. 
+    Official Lockally SDK for Python: send email and manage mailboxes, domains and webhooks through the Lockally API.  **Authentication.** All &#x60;/v1/*&#x60; endpoints require a Bearer API key in the &#x60;Authorization&#x60; header. Keys are formatted &#x60;lk_live_&lt;8-char-prefix&gt;_&lt;32-char-secret&gt;&#x60;, or &#x60;lk_test_&lt;...&gt;&#x60; for a test key. Create keys in the dashboard, or with &#x60;POST /v1/api-keys&#x60; using a key that holds &#x60;tenant:admin&#x60;.  The key&#39;s plan is checked on every request, so a key stops working if the account moves to a plan without API access, and works again if it moves back.  **Errors.** Failures return [RFC 9457](https://www.rfc-editor.org/rfc/rfc9457) &#x60;application/problem+json&#x60; documents.  **Scopes.** Each endpoint requires a specific scope on the presented key. Insufficient scope returns &#x60;403&#x60; with the required scope name in &#x60;detail&#x60;. 
     """,  # noqa: E501
     package_data={"lockally": ["py.typed"]},
 )
