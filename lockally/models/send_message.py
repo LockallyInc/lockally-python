@@ -32,7 +32,8 @@ class SendMessage(BaseModel):
     """
     SendMessage
     """ # noqa: E501
-    var_from: StrictStr = Field(alias="from")
+    var_from: StrictStr = Field(description="Sender address, alone or as `Acme Orders <orders@acme.com>`.", alias="from")
+    from_name: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="Display name shown next to `from`. Must match a name given in `from`. Cannot contain `@` or control characters.")
     to: Annotated[List[StrictStr], Field(min_length=1)]
     cc: Optional[List[StrictStr]] = None
     bcc: Optional[List[StrictStr]] = None
@@ -47,7 +48,7 @@ class SendMessage(BaseModel):
     variables: Optional[Dict[str, StrictStr]] = None
     send_at: Optional[datetime] = None
     attachments: Optional[List[SendEmailRequestAttachmentsInner]] = None
-    __properties: ClassVar[List[str]] = ["from", "to", "cc", "bcc", "subject", "text", "html", "headers", "reply_to", "reply_to_name", "unsubscribe", "template_id", "variables", "send_at", "attachments"]
+    __properties: ClassVar[List[str]] = ["from", "from_name", "to", "cc", "bcc", "subject", "text", "html", "headers", "reply_to", "reply_to_name", "unsubscribe", "template_id", "variables", "send_at", "attachments"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -108,6 +109,7 @@ class SendMessage(BaseModel):
 
         _obj = cls.model_validate({
             "from": obj.get("from"),
+            "from_name": obj.get("from_name"),
             "to": obj.get("to"),
             "cc": obj.get("cc"),
             "bcc": obj.get("bcc"),

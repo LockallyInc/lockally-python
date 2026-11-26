@@ -5,7 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**var_from** | **str** |  | 
+**var_from** | **str** | Sender address, alone or as &#x60;Acme Orders &lt;orders@acme.com&gt;&#x60;. | 
+**from_name** | **str** | Display name shown next to &#x60;from&#x60;. Must match a name given in &#x60;from&#x60;. Cannot contain &#x60;@&#x60; or control characters. | [optional] 
 **to** | **List[str]** |  | 
 **cc** | **List[str]** |  | [optional] 
 **bcc** | **List[str]** |  | [optional] 

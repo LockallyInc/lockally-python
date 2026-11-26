@@ -60,6 +60,7 @@ class Lockally:
         *,
         from_: str,
         to: Addresses,
+        from_name: Optional[str] = None,
         subject: Optional[str] = None,
         text: Optional[str] = None,
         html: Optional[str] = None,
@@ -91,6 +92,7 @@ class Lockally:
         """
         body: dict[str, Any] = {
             "from": from_,
+            "from_name": from_name,
             "to": _list(to),
             "subject": subject,
             "text": text,

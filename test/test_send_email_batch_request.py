@@ -39,6 +39,7 @@ class TestSendEmailBatchRequest(unittest.TestCase):
                 messages = [
                     lockally.models.send_message.SendMessage(
                         from = '', 
+                        from_name = '', 
                         to = [
                             ''
                             ], 
@@ -78,6 +79,7 @@ class TestSendEmailBatchRequest(unittest.TestCase):
                 messages = [
                     lockally.models.send_message.SendMessage(
                         from = '', 
+                        from_name = '', 
                         to = [
                             ''
                             ], 

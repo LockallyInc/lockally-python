@@ -32,7 +32,8 @@ class SendEmailRequest(BaseModel):
     """
     SendEmailRequest
     """ # noqa: E501
-    var_from: StrictStr = Field(alias="from")
+    var_from: StrictStr = Field(description="Sender address, alone (`orders@acme.com`) or with a display name (`Acme Orders <orders@acme.com>`). Only the address is checked against your sender rules and used as the envelope sender.", alias="from")
+    from_name: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="Display name recipients see next to `from`, e.g. `Acme Orders`. The same as giving it in `from`; if you do both, the names must match (400 `Conflicting from name`). Cannot contain `@` or control characters. Encoded and quoted for you, so accents, commas and quotes are safe.")
     to: Annotated[List[StrictStr], Field(min_length=1)]
     cc: Optional[List[StrictStr]] = None
     bcc: Optional[List[StrictStr]] = None
@@ -51,7 +52,7 @@ class SendEmailRequest(BaseModel):
     track_opens: Optional[StrictBool] = Field(default=None, description="Override the account's open-tracking setting for this one send. Omit to inherit it.  Three states matter here: `true`, `false`, and absent. A transactional receipt can set `false` without the account turning tracking off for its marketing. ")
     track_clicks: Optional[StrictBool] = Field(default=None, description="As `track_opens`, for click tracking. Click tracking rewrites `http(s)` links in the **HTML** part only: the plain-text part is never rewritten, because a visible redirect URL is what recipients complain about. A text-only send is therefore not click-tracked. ")
     attachments: Optional[List[SendEmailRequestAttachmentsInner]] = None
-    __properties: ClassVar[List[str]] = ["from", "to", "cc", "bcc", "subject", "text", "html", "headers", "reply_to", "reply_to_name", "unsubscribe", "template_id", "variables", "send_at", "metadata", "tags", "track_opens", "track_clicks", "attachments"]
+    __properties: ClassVar[List[str]] = ["from", "from_name", "to", "cc", "bcc", "subject", "text", "html", "headers", "reply_to", "reply_to_name", "unsubscribe", "template_id", "variables", "send_at", "metadata", "tags", "track_opens", "track_clicks", "attachments"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -112,6 +113,7 @@ class SendEmailRequest(BaseModel):
 
         _obj = cls.model_validate({
             "from": obj.get("from"),
+            "from_name": obj.get("from_name"),
             "to": obj.get("to"),
             "cc": obj.get("cc"),
             "bcc": obj.get("bcc"),

@@ -37,6 +37,7 @@ class TestSendMessage(unittest.TestCase):
         if include_optional:
             return SendMessage(
                 var_from = '',
+                from_name = '',
                 to = [
                     ''
                     ],

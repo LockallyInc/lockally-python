@@ -40,8 +40,8 @@ class CreateApiKeyRequest(BaseModel):
     def scopes_validate_enum(cls, value):
         """Validates the enum"""
         for i in value:
-            if i not in set(['tenant:read', 'tenant:admin', 'mailboxes:read', 'mailboxes:write', 'directory:sync', 'inboxes:read', 'inboxes:write', 'send:read', 'send:write', 'templates:read', 'templates:write', 'suppressions:read', 'suppressions:write', 'webhooks:read', 'webhooks:write', 'domains:read', 'domains:write', 'migrations:read', 'migrations:write']):
-                raise ValueError("each list item must be one of ('tenant:read', 'tenant:admin', 'mailboxes:read', 'mailboxes:write', 'directory:sync', 'inboxes:read', 'inboxes:write', 'send:read', 'send:write', 'templates:read', 'templates:write', 'suppressions:read', 'suppressions:write', 'webhooks:read', 'webhooks:write', 'domains:read', 'domains:write', 'migrations:read', 'migrations:write')")
+            if i not in set(['tenant:read', 'tenant:admin', 'mailboxes:read', 'mailboxes:write', 'directory:sync', 'inboxes:read', 'inboxes:draft', 'inboxes:write', 'send:read', 'send:write', 'templates:read', 'templates:write', 'suppressions:read', 'suppressions:write', 'webhooks:read', 'webhooks:write', 'domains:read', 'domains:write', 'migrations:read', 'migrations:write']):
+                raise ValueError("each list item must be one of ('tenant:read', 'tenant:admin', 'mailboxes:read', 'mailboxes:write', 'directory:sync', 'inboxes:read', 'inboxes:draft', 'inboxes:write', 'send:read', 'send:write', 'templates:read', 'templates:write', 'suppressions:read', 'suppressions:write', 'webhooks:read', 'webhooks:write', 'domains:read', 'domains:write', 'migrations:read', 'migrations:write')")
         return value
 
     model_config = ConfigDict(

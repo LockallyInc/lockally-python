@@ -27,6 +27,14 @@ window (replay protection). A reference verifier ships in
 
 Event names: see the [event catalogue](https://developers.lockally.com/webhooks/events/).
 
+**Optional `Idempotency-Key` header** (up to 255 characters). A repeat
+of the same key within 24 hours creates nothing and returns `409` with
+a problem document naming the webhook the first call created
+(`webhook_id`, `created_at`). The signing secret is never stored, so it
+cannot be replayed: delete that webhook if its secret never reached
+you. A key used on a different endpoint in the last 24 hours returns
+`422`. Without the header, every call creates a webhook.
+
 
 ### Example
 

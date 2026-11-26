@@ -37,6 +37,7 @@ class TestSendEmailRequest(unittest.TestCase):
         if include_optional:
             return SendEmailRequest(
                 var_from = '',
+                from_name = '',
                 to = [
                     ''
                     ],
